@@ -12,6 +12,12 @@ DummyTest >> testA [
 ]
 
 { #category : 'tests' }
+DummyTest >> testB [
+
+	self assert: Dummy new isDummy
+]
+
+{ #category : 'tests' }
 DummyTest >> testDummy [
 
 	self assert: Dummy new isDummy
