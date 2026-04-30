@@ -18,7 +18,7 @@ DiceLoadedTests >> test001WhenWeInitializeADiceLoadedWithZeroValueThenRaiseError
 	self
 		should: [DiceLoaded with: 0] 
 		raise: Error
-		withMessageText: 'El valor del dado cargado debe ser mayor a 0'
+		withMessageText: 'No existen dados de 0 caras'
 ]
 
 { #category : 'running' }
