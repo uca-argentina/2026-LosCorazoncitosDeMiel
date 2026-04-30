@@ -2,7 +2,7 @@ Class {
 	#name : 'Dice',
 	#superclass : 'Object',
 	#instVars : [
-		'numberOfTheDice'
+		'faces'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
@@ -10,20 +10,22 @@ Class {
 
 { #category : 'instance creation' }
 Dice class >> with: faces [ 
-	^ self new initializeWith: faces. 
+	
+	faces>0 ifTrue: [^ self new initializeWith: faces] ifFalse:[Error signal: 'No existen dados de 0 caras'] 
+ 
 ]
 
 { #category : 'as yet unclassified' }
-Dice >> caras [
-	^ numberOfTheDice 
+Dice >> faces [
+	^ faces 
 ]
 
 { #category : 'initialization' }
 Dice >> initializeWith: anInteger [ 
-	numberOfTheDice:= anInteger .
+	faces:= anInteger .
 ]
 
 { #category : 'as yet unclassified' }
-Dice >> throw [
-	^ (1 to: numberOfTheDice ) atRandom 
+Dice >> roll [
+	^ (1 to: faces ) atRandom 
 ]

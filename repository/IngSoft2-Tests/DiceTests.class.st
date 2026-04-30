@@ -5,29 +5,45 @@ Class {
 	#package : 'IngSoft2-Tests'
 }
 
-{ #category : 'running' }
-DiceTests >> test003WhenADiceIsInitializedWith6ThenWhenWeThrowTheNumberIsBetween1And6 [
-
-	|Dice1|
-	Dice1:= Dice with: 6.
-	 
-	self assert: ((Dice1 throw) between: 1 and: 6).
+{ #category : 'asserting' }
+DiceTests >> should: aFullBlockClosure raise: anError withMessageText: message [ 
+	self 
+	should:  aFullBlockClosure 
+	raise: anError
+	withExceptionDo: [ :error | self assert: error messageText equals: message ].
 ]
 
 { #category : 'running' }
-DiceTests >> testWhenADiceIsInitializedThenFacesDoesntEquals5 [
+DiceTests >> test001WhenWeInitializeADiceWithZeroFacesThenRaiseError [
 
+	self
+	should: [Dice with: 0] 
+	raise: Error
+	withMessageText: 'No existen dados de 0 caras'
+]
 
-	|Dice1|
-	Dice1:= Dice new.
-	self deny: Dice1 caras equals: 5.
+{ #category : 'running' }
+DiceTests >> test002WhenADiceIsInitializedThenFacesDoesntEquals5 [
+
+	|aDice|
+	aDice := Dice with: 6.
+	self deny: aDice faces equals: 5.
 		
 ]
 
 { #category : 'running' }
-DiceTests >> testWhenADiceIsInitializedThenFacesEquals6 [
+DiceTests >> test003WhenADiceIsInitializedWith6ThenWhenWeRollTheNumberIsBetween1And6 [
 
-	|Dice1|
-	Dice1:= Dice with: 6. 
-	self assert: Dice1 caras equals: 6.
+	|aDice|
+	aDice:= Dice with: 6.
+	 
+	self assert: ((aDice roll) between: 1 and: 6).
+]
+
+{ #category : 'running' }
+DiceTests >> test004WhenADiceIsInitializedThenFacesEquals6 [
+
+	|aDice|
+	aDice:= Dice with: 6. 
+	self assert: aDice faces equals: 6.
 ]
