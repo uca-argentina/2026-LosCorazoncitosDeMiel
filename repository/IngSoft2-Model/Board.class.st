@@ -19,6 +19,11 @@ Board >> cantidadDeCasilleros [
 	^casilleros.
 ]
 
+{ #category : 'as yet unclassified' }
+Board >> hasReachedGoal: aPosition [
+	^ aPosition >= casilleros.
+]
+
 { #category : 'initialization' }
 Board >> initializeWith: aCasilleros [ 
 	casilleros := aCasilleros
