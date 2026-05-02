@@ -8,6 +8,11 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
+{ #category : 'as yet unclassified' }
+Ship >> advanceBy: aNumber [ 
+	position := position + aNumber.
+]
+
 { #category : 'initialization' }
 Ship >> initialize [
     position := 1
