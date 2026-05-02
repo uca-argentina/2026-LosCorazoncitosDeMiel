@@ -15,18 +15,13 @@ Board class >> with: aCasilleros [
 ]
 
 { #category : 'as yet unclassified' }
-Board >> Hasfinished: aPosition [
-	^ aPosition >= casilleros.
-]
-
-{ #category : 'as yet unclassified' }
 Board >> cantidadDeCasilleros [
 	^casilleros.
 ]
 
 { #category : 'as yet unclassified' }
-Board >> game [
-	self shouldBeImplemented.
+Board >> hasReachedGoal: aPosition [
+	^ aPosition >= casilleros.
 ]
 
 { #category : 'initialization' }

@@ -49,3 +49,24 @@ BoardTests >> test004WhenInitializeBoardWithNegativeNumberThenRaiseAnError [
 	raise: Error 
 	withMessageText: 'El numero de inicializacion tiene que ser mayor a 0'
 ]
+
+{ #category : 'tests' }
+BoardTests >> test005WhenPositionIsLessThanSquaresThenHasNotReachedGoal [
+    | board |
+    board := Board with: 10.
+    self deny: (board hasReachedGoal: 5).
+]
+
+{ #category : 'tests' }
+BoardTests >> test006WhenPositionIsEqualToSquaresThenHasReachedGoal [
+    | board |
+    board := Board with: 10.
+    self assert: (board hasReachedGoal: 10).
+]
+
+{ #category : 'tests' }
+BoardTests >> test007WhenPositionIsGreaterThanSquaresThenHasReachedGoal [
+    | board |
+    board := Board with: 10.
+    self assert: (board hasReachedGoal: 15)
+]

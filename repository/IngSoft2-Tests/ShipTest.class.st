@@ -11,3 +11,11 @@ ShipTest >> test001WhenWeCreateANewShipThenPositionIs1 [
     aShip := Ship new.
     self assert: aShip position equals: 1.
 ]
+
+{ #category : 'running' }
+ShipTest >> test002WhenShipAdvancesBy3ThenPositionIs4 [
+    | aShip |
+    aShip := Ship new.
+    aShip advanceBy: 3.
+    self assert: aShip position equals: 4.
+]
