@@ -14,12 +14,12 @@ DiceTests >> should: aFullBlockClosure raise: anError withMessageText: message [
 ]
 
 { #category : 'running' }
-DiceTests >> test001WhenWeInitializeADiceWithZeroFacesThenRaiseError [
+DiceTests >> test001WhenWeADiceIsInitializedWithLessThanTwoFacesThenRaiseError [
 
 	self
-	should: [DiceNormal with: 0] 
+	should: [DiceNormal with: 1] 
 	raise: Error
-	withMessageText: 'No existen dados de 0 caras'
+	withMessageText: 'A die must have at least 2 faces'
 ]
 
 { #category : 'running' }

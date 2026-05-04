@@ -11,7 +11,8 @@ Class {
 { #category : 'instance creation' }
 Dice class >> with: faces [ 
 	
-	faces>0 ifTrue: [^ self new initializeWith: faces] ifFalse:[Error signal: 'No existen dados de 0 caras'] 
+	faces<2 ifTrue: [Error signal: 'A die must have at least 2 faces'] .
+	^ self new initializeWith: faces
 ]
 
 { #category : 'as yet unclassified' }
