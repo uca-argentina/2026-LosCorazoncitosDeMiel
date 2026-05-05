@@ -16,36 +16,36 @@ BoardTests >> should: aBlock raise: anErrorClass withMessageText: aMessage [
 { #category : 'tests' }
 BoardTests >> test001WhenCantidadDeCasillerosIsBiggerThan0ThenIsValid [
 
-	| aTablero |
-	aTablero := Board with: 5.
+	| aBoard |
+	aBoard := Board with: 5.
 	
-	self assert: ((aTablero cantidadDeCasilleros)>0).
+	self assert: ((aBoard squareCount)>0).
 ]
 
 { #category : 'tests' }
 BoardTests >> test002henCantidadDeCasillerosIsSmallerThan0ThenIsInvalid [
 
-	| aTablero |
-	aTablero := Board with: 4.
+	| aBoard |
+	aBoard := Board with: 4.
 	
-	self deny: ((aTablero cantidadDeCasilleros)<0).
+	self deny: ((aBoard squareCount)<0).
 ]
 
 { #category : 'tests' }
 BoardTests >> test003WhenInitializeBoardWith10CellsThenCantidadDeCasillerosEqualsTo10 [
 
-	| aTablero |
-	aTablero := Board with: 10.
+	| aBoard |
+	aBoard := Board with: 10.
 	
-	self assert: (aTablero cantidadDeCasilleros) equals:10.
+	self assert: (aBoard squareCount) equals:10.
 ]
 
 { #category : 'tests' }
 BoardTests >> test004WhenInitializeBoardWithNegativeNumberThenRaiseAnError [
 
-	| aTablero |
+	| aBoard |
 	self
-	should: [ aTablero := Board with: -10.] 
+	should: [ aBoard := Board with: -10.] 
 	raise: Error 
-	withMessageText: 'El numero de inicializacion tiene que ser mayor a 0'
+	withMessageText: 'A board must have at least 1 square'
 ]
