@@ -19,7 +19,7 @@ DiceTests >> test001WhenWeInitializeADiceWithZeroFacesThenRaiseError [
 	self
 	should: [DiceNormal with: 0] 
 	raise: Error
-	withMessageText: 'No existen dados de 0 caras'
+	withMessageText: 'A dice must have at least 2 faces'
 ]
 
 { #category : 'running' }

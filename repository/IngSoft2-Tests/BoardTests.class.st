@@ -14,40 +14,40 @@ BoardTests >> should: aBlock raise: anErrorClass withMessageText: aMessage [
 ]
 
 { #category : 'tests' }
-BoardTests >> test001WhenCantidadDeCasillerosIsBiggerThan0ThenIsValid [
+BoardTests >> test001WhenSquareCountIsBiggerThan0ThenIsValid [
 
-	| aTablero |
-	aTablero := Board with: 5.
-	
-	self assert: ((aTablero cantidadDeCasilleros)>0).
+    | aBoard |
+    aBoard := Board with: 5.
+    self assert: aBoard squareCount > 0.
 ]
 
 { #category : 'tests' }
-BoardTests >> test002henCantidadDeCasillerosIsSmallerThan0ThenIsInvalid [
+BoardTests >> test002WhenSquareCountIsSmallerThan0ThenIsInvalid [
 
-	| aTablero |
-	aTablero := Board with: 4.
-	
-	self deny: ((aTablero cantidadDeCasilleros)<0).
+    | aBoard |
+
+    aBoard := Board with: 4.
+    self deny: aBoard squareCount < 0.
 ]
 
 { #category : 'tests' }
-BoardTests >> test003WhenInitializeBoardWith10CellsThenCantidadDeCasillerosEqualsTo10 [
-
-	| aTablero |
-	aTablero := Board with: 10.
-	
-	self assert: (aTablero cantidadDeCasilleros) equals:10.
+BoardTests >> test003WhenInitializeBoardWith10CellsThenSquareCountEqualsTo10 [
+    
+	| aBoard |
+ 
+   	aBoard := Board with: 10.
+   self assert: aBoard squareCount equals: 10.
 ]
 
 { #category : 'tests' }
 BoardTests >> test004WhenInitializeBoardWithNegativeNumberThenRaiseAnError [
-
-	| aTablero |
+    
+	| aBoard |
+   
 	self
-	should: [ aTablero := Board with: -10.] 
-	raise: Error 
-	withMessageText: 'El numero de inicializacion tiene que ser mayor a 0'
+        should: [ aBoard := Board with: -10. ]
+        raise: Error
+        withMessageText: 'The number of squares must be greater than 0'
 ]
 
 { #category : 'tests' }
