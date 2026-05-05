@@ -194,3 +194,34 @@ GameTest >> test010WhenGameIsCreatedWithNoDiceThenRaiseError [
         raise: Error
         withMessageText: 'Game must have at least one dice'
 ]
+
+{ #category : 'running' }
+GameTest >> test011WhenPlayTurnWithTwoDifferentLoadedDiceThenShipAdvancesTheirSum [
+    | ship dice1 dice2 board game |
+    ship := Ship new.
+    dice1 := DiceLoaded with: 3.
+    dice2 := DiceLoaded with: 4.
+    board := Board with: 20.
+    game := Game withShips: {ship} dice: {dice1. dice2} board: board.
+    
+    game playTurn.
+    
+    self assert: ship position equals: 8.
+]
+
+{ #category : 'running' }
+GameTest >> test012WhenTwoShipsPlayWithTwoDiceThenBothAdvanceTheirSum [
+    | ship1 ship2 dice1 dice2 board game |
+    ship1 := Ship new.
+    ship2 := Ship new.
+    dice1 := DiceLoaded with: 3.
+    dice2 := DiceLoaded with: 4.
+    board := Board with: 20.
+    game := Game withShips: {ship1. ship2} dice: {dice1. dice2} board: board.
+    
+    game playTurn.
+    game playTurn.
+    
+    self assert: ship1 position equals: 8.
+    self assert: ship2 position equals: 8.
+]

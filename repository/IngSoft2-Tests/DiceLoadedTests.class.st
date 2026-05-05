@@ -18,7 +18,7 @@ DiceLoadedTests >> test001WhenWeInitializeADiceLoadedWithZeroValueThenRaiseError
 	self
 		should: [DiceLoaded with: 0] 
 		raise: Error
-		withMessageText: 'A dice must have at least 2 faces'
+		withMessageText: 'A loaded die must have a value greater than 0'
 ]
 
 { #category : 'running' }
