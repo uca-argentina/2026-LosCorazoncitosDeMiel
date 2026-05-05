@@ -130,7 +130,7 @@ game playTurn.
 self
 should: [game playTurn] 
 raise: Error 
-withMessageText: 'El juego ya termino.'.
+withMessageText: 'The game has already finished'.
 
 
 
@@ -158,4 +158,39 @@ game playTurn.
 self assert: (game positionOf: ship1) equals: 13.
 self assert: (game positionOf: ship2) equals: 7 
 
+]
+
+{ #category : 'running' }
+GameTest >> test008WhenGameHasNotFinishedThenWinnerRaisesError [
+	|dice board game ship ships|
+	ship:= Ship new.
+	ships:= OrderedCollection new.
+	ships add: ship.
+	dice:= DiceLoaded with:2.
+	board:= Board with: 10.
+	game:= Game withShips: ships  dice:{dice}  board: board.
+	
+	self
+	should: [game winner ]
+	raise: Error
+	withMessageText: 'The game has not finished yet'
+]
+
+{ #category : 'running' }
+GameTest >> test009WhenGameIsCreatedWithNoShipsThenRaiseError [
+	
+	self
+	
+	should:[Game withShips: OrderedCollection new dice:{DiceLoaded with: 2}   board:(Board with: 10) ]
+	raise: Error
+	withMessageText: 'Game must have at least one ship'
+]
+
+{ #category : 'running' }
+GameTest >> test010WhenGameIsCreatedWithNoDiceThenRaiseError [
+	
+    self
+        should: [ Game withShips: {Ship new} dice: {} board: (Board with: 10) ]
+        raise: Error
+        withMessageText: 'Game must have at least one dice'
 ]
