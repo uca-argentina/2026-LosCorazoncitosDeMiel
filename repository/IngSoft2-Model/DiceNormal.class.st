@@ -11,7 +11,7 @@ Class {
 { #category : 'instance creation' }
 DiceNormal class >> with: faces [ 
 	
-	faces>=2 ifTrue: [^ self new initializeWith: faces] ifFalse:[Error signal: 'A dice must have at least 2 faces'] 
+	faces>=3 ifTrue: [^ self new initializeWith: faces] ifFalse:[Error signal: 'A dice must have at least 3 faces'] 
 ]
 
 { #category : 'accessing' }
@@ -26,5 +26,6 @@ DiceNormal >> initializeWith: anInteger [
 
 { #category : 'as yet unclassified' }
 DiceNormal >> roll [
-	^ (1 to: faces ) atRandom 
+
+	^ (1 to: faces) atRandom
 ]
