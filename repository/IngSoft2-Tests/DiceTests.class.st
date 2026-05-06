@@ -19,7 +19,7 @@ DiceTests >> test001WhenWeInitializeADiceWithZeroFacesThenRaiseError [
 	self
 	should: [DiceNormal with: 0] 
 	raise: Error
-	withMessageText: 'A dice must have at least 2 faces'
+	withMessageText: 'A dice must have at least 3 faces'
 ]
 
 { #category : 'running' }
