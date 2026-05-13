@@ -15,8 +15,18 @@ Board class >> with: aSquareCount [
 ]
 
 { #category : 'as yet unclassified' }
+Board >> hasCompletedLap: newPosition [
+    ^ newPosition > squares
+]
+
+{ #category : 'as yet unclassified' }
 Board >> hasReachedGoal: aPosition [
 	^ aPosition >= squares.
+]
+
+{ #category : 'as yet unclassified' }
+Board >> hasReachedGoal: aShip withLaps: aLapCount [
+    ^ aShip laps >= aLapCount
 ]
 
 { #category : 'initialization' }
@@ -28,4 +38,9 @@ Board >> initializeWith: aSquareCount [
 Board >> squareCount [
 
 	^ squares 
+]
+
+{ #category : 'as yet unclassified' }
+Board >> wrapPosition: aPosition [
+    ^ ((aPosition - 1) \\ squares) + 1
 ]

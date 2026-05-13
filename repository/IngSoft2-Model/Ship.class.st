@@ -14,11 +14,6 @@ Ship >> addLap [
 	laps:= laps + 1.
 ]
 
-{ #category : 'as yet unclassified' }
-Ship >> advanceBy: aNumber [ 
-	position := position + aNumber.
-]
-
 { #category : 'initialization' }
 Ship >> initialize [
     position := 1.
@@ -28,6 +23,16 @@ Ship >> initialize [
 { #category : 'accessing' }
 Ship >> laps [
 	^ laps
+]
+
+{ #category : 'as yet unclassified' }
+Ship >> moveTo: aPosition [
+    position := aPosition
+]
+
+{ #category : 'instance creation' }
+Ship >> newPosition [
+	self shouldBeImplemented.
 ]
 
 { #category : 'initialization' }
