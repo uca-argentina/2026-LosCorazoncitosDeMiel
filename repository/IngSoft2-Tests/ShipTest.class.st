@@ -19,3 +19,28 @@ ShipTest >> test002WhenShipAdvancesBy3ThenPositionIs4 [
     aShip advanceBy: 3.
     self assert: aShip position equals: 4.
 ]
+
+{ #category : 'running' }
+ShipTest >> test003WhenShipCompletesALapThenLapsEquals1 [
+    | ship |
+    ship := Ship new.
+    ship addLap.
+    self assert: ship laps equals: 1.
+]
+
+{ #category : 'running' }
+ShipTest >> test004WhenShipStartsGameThenLapsEquals0 [
+    | ship |
+    ship := Ship new.
+    self assert: ship laps equals: 0.
+]
+
+{ #category : 'running' }
+ShipTest >> test005WhenShipCompletesThreeLapsThenLapsEquals3 [
+    | ship |
+    ship := Ship new.
+    ship addLap.
+    ship addLap.
+    ship addLap.
+    self assert: ship laps equals: 3.
+]
