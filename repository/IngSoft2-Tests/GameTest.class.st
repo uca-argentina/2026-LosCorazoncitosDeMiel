@@ -18,10 +18,10 @@ GameTest >> should: aFullBlockClosure raise: anError withMessageText: message [
 GameTest >> test001WhenShipPlayTurnWithOneLoadedDiceWith6FacesThenThePositionEqualsTo7 [
 
 | ship dice board game |
-ship := Ship new.
-dice:= DiceLoaded with: 6.
+ship := Ship named: 'Ship1'.
+dice:= LoadedDie with: 6.
 board := Board with: 10.
-game := Game withShips: {ship} dice: {dice} board: board.
+game := Game withShips: {ship} dice: {dice} board: board laps: 1.
 
 game playTurn.
 
@@ -33,14 +33,14 @@ self assert: ship position equals: 7.
 GameTest >> test002WhenTwoShipsPlayOneTurnWithOneLoadedDiceThenBothAreAtPosition7 [
 
 | dice board game ship1 ship2 ships |
-ship1 := Ship new.
-ship2 := Ship new.
+ship1 := Ship named: 'Ship1'.
+ship2 := Ship named: 'Ship2'.
 ships:= OrderedCollection new.
 ships add: ship1.
 ships add: ship2.
-dice:= DiceLoaded with: 6.
+dice:= LoadedDie with: 6.
 board := Board with: 10.
-game := Game withShips: ships dice: {dice} board: board.
+game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
 game playTurn.
@@ -54,14 +54,14 @@ self assert: ship2 position equals: 7.
 GameTest >> test003WhenOnlyShipOnePlaysTurnThenShip2RemainsAtPosition1 [ 
 
 | dice board game ship1 ship2 ships |
-ship1 := Ship new.
-ship2 := Ship new.
+ship1 := Ship named: 'Ship1'.
+ship2 := Ship named: 'Ship2'.
 ships:= OrderedCollection new.
 ships add: ship1.
 ships add: ship2.
-dice:= DiceLoaded with: 6.
+dice:= LoadedDie with: 6.
 board := Board with: 10.
-game := Game withShips: ships dice: {dice} board: board.
+game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
 
@@ -74,14 +74,14 @@ self assert: ship2 position equals: 1.
 GameTest >> test004WhenShipCrossesGoalThenGameHasFinished [ 
 
 | dice board game ship1 ship2 ships |
-ship1 := Ship new.
-ship2 := Ship new.
+ship1 := Ship named: 'Ship1'.
+ship2 := Ship named: 'Ship2'.
 ships:= OrderedCollection new.
 ships add: ship1.
 ships add: ship2.
-dice:= DiceLoaded with: 6.
+dice:= LoadedDie with: 6.
 board := Board with: 6.
-game := Game withShips: ships dice: {dice} board: board.
+game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
 
@@ -91,17 +91,32 @@ self assert: game hasFinished.
 ]
 
 { #category : 'tests' }
+GameTest >> test005WhenShipCompletesOneLapThenGameHasFinished [
+    | ship dice board game |
+    ship := Ship named: 'Ship1'.
+
+    dice := LoadedDie with: 6.
+    board := Board with: 6.
+    game := Game withShips: {ship} dice: {dice} board: board laps: 1.
+    
+    game playTurn.
+    
+    self assert: game hasFinished.
+
+]
+
+{ #category : 'tests' }
 GameTest >> test005WhenShipCrossesGoalThenThatShipIsTheWinner [
 
 | dice board game ship1 ship2 ships |
-ship1 := Ship new.
-ship2 := Ship new.
+ship1 := Ship named: 'Ship1'.
+ship2 := Ship named: 'Ship2'.
 ships:= OrderedCollection new.
 ships add: ship1.
 ships add: ship2.
-dice:= DiceLoaded with: 6.
+dice:= LoadedDie with: 6.
 board := Board with: 10.
-game := Game withShips: ships dice: {dice} board: board.
+game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
 game playTurn.
@@ -116,14 +131,14 @@ self assert: game winner equals: ship1.
 GameTest >> test006WhenGameIsFinishedThenPlayTurnRaisesError [
 
 | dice board game ship1 ships |
-ship1 := Ship new.
+ship1 := Ship named: 'Ship1'.
 
 ships:= OrderedCollection new.
 ships add: ship1.
 
-dice:= DiceLoaded with: 6.
+dice:= LoadedDie with: 6.
 board := Board with: 10.
-game := Game withShips: ships dice: {dice} board: board.
+game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
 game playTurn.
@@ -141,21 +156,21 @@ withMessageText: 'The game has already finished'.
 GameTest >> test007WhenGameFinishesCanKnowPositionOfEachShip [
 
 | dice board game ship1 ship2 ships |
-ship1 := Ship new.
-ship2 := Ship new.
+ship1 := Ship named: 'Ship1'.
+ship2 := Ship named: 'Ship2'.
 ships:= OrderedCollection new.
 ships add: ship1.
 ships add: ship2.
-dice:= DiceLoaded with: 6.
+dice:= LoadedDie with: 6.
 board := Board with: 10.
-game := Game withShips: ships dice: {dice} board: board.
+game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
 game playTurn.
 game playTurn.
 
 
-self assert: (game positionOf: ship1) equals: 13.
+self assert: (game positionOf: ship1) equals: 3.
 self assert: (game positionOf: ship2) equals: 7 
 
 ]
@@ -163,12 +178,13 @@ self assert: (game positionOf: ship2) equals: 7
 { #category : 'running' }
 GameTest >> test008WhenGameHasNotFinishedThenWinnerRaisesError [
 	|dice board game ship ships|
-	ship:= Ship new.
+	ship := Ship named: 'Ship1'.
+
 	ships:= OrderedCollection new.
 	ships add: ship.
-	dice:= DiceLoaded with:2.
+	dice:= LoadedDie with:2.
 	board:= Board with: 10.
-	game:= Game withShips: ships  dice:{dice}  board: board.
+	game:= Game withShips: ships  dice:{dice}  board: board laps: 1.
 	
 	self
 	should: [game winner ]
@@ -181,7 +197,7 @@ GameTest >> test009WhenGameIsCreatedWithNoShipsThenRaiseError [
 	
 	self
 	
-	should:[Game withShips: OrderedCollection new dice:{DiceLoaded with: 2}   board:(Board with: 10) ]
+	should:[Game withShips: OrderedCollection new dice:{LoadedDie with: 2}   board:(Board with: 10) ]
 	raise: Error
 	withMessageText: 'Game must have at least one ship'
 ]
@@ -198,11 +214,12 @@ GameTest >> test010WhenGameIsCreatedWithNoDiceThenRaiseError [
 { #category : 'running' }
 GameTest >> test011WhenPlayTurnWithTwoDifferentLoadedDiceThenShipAdvancesTheirSum [
     | ship dice1 dice2 board game |
-    ship := Ship new.
-    dice1 := DiceLoaded with: 3.
-    dice2 := DiceLoaded with: 4.
+    ship := Ship named: 'Ship1'.
+
+    dice1 := LoadedDie with: 3.
+    dice2 := LoadedDie with: 4.
     board := Board with: 20.
-    game := Game withShips: {ship} dice: {dice1. dice2} board: board.
+    game := Game withShips: {ship} dice: {dice1. dice2} board: board laps: 1.
     
     game playTurn.
     
@@ -212,16 +229,71 @@ GameTest >> test011WhenPlayTurnWithTwoDifferentLoadedDiceThenShipAdvancesTheirSu
 { #category : 'running' }
 GameTest >> test012WhenTwoShipsPlayWithTwoDiceThenBothAdvanceTheirSum [
     | ship1 ship2 dice1 dice2 board game |
-    ship1 := Ship new.
-    ship2 := Ship new.
-    dice1 := DiceLoaded with: 3.
-    dice2 := DiceLoaded with: 4.
+    ship1 := Ship named: 'Ship1'.
+ship2 := Ship named: 'Ship2'.
+    dice1 := LoadedDie with: 3.
+    dice2 := LoadedDie with: 4.
     board := Board with: 20.
-    game := Game withShips: {ship1. ship2} dice: {dice1. dice2} board: board.
+    game := Game withShips: {ship1. ship2} dice: {dice1. dice2} board: board laps: 1.
     
     game playTurn.
     game playTurn.
     
     self assert: ship1 position equals: 8.
     self assert: ship2 position equals: 8.
+]
+
+{ #category : 'running' }
+GameTest >> test013WhenShipAdvancesBeyondBoardSizeThenLapsEquals1 [
+    | ship dice board game |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 6.
+    board := Board with: 6.
+    game := Game withShips: {ship} dice: {dice} board: board laps: 1.
+    
+    game playTurn.
+    
+    self assert: ship laps equals: 1.
+]
+
+{ #category : 'running' }
+GameTest >> test014WhenShipAdvancesBeyondBoardSizeThenPositionWrapsAround [
+    | ship dice board game |
+    ship := Ship named: 'Ship1'.
+
+    dice := LoadedDie with: 6.
+    board := Board with: 6.
+    game := Game withShips: {ship} dice: {dice} board: board laps: 1.
+    
+    game playTurn.
+    
+    self assert: ship position equals: 1.
+]
+
+{ #category : 'running' }
+GameTest >> test015WhenShipCompletesOneLapThenGameKnowsLapOfShip [
+    | ship dice board game |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 6.
+    board := Board with: 6.
+    game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+    
+    game playTurn.
+    
+    self assert: (game lapsOf: ship) equals: 1.
+]
+
+{ #category : 'running' }
+GameTest >> test016WhenShip1PlaysTurnThenShip2HasNotMoved [
+    | ship1 ship2 dice board game |
+    ship1 := Ship named: 'Ship1'.
+ship2 := Ship named: 'Ship2'.
+    dice := LoadedDie with: 6.
+    board := Board with: 10.
+    game := Game withShips: {ship1. ship2} dice: {dice} board: board laps: 2.
+    
+    game playTurn.
+    
+    self assert: ship1 position equals: 7.
+    self assert: ship2 position equals: 1.
 ]

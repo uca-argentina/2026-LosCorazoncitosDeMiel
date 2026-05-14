@@ -14,20 +14,21 @@ BoardTests >> should: aBlock raise: anErrorClass withMessageText: aMessage [
 ]
 
 { #category : 'tests' }
-BoardTests >> test001WhenSquareCountIsBiggerThan0ThenIsValid [
+BoardTests >> test001WhenBoardIsCreatedWithZeroSquaresThenRaisesError [
+    self
+        should: [ Board with: 0 ]
+        raise: Error
+        withMessageText: 'The number of squares must be greater than 0'.
 
-    | aBoard |
-    aBoard := Board with: 5.
-    self assert: aBoard squareCount > 0.
+
 ]
 
 { #category : 'tests' }
-BoardTests >> test002WhenSquareCountIsSmallerThan0ThenIsInvalid [
-
-    | aBoard |
-
-    aBoard := Board with: 4.
-    self deny: aBoard squareCount < 0.
+BoardTests >> test002WhenBoardIsCreatedWithNegativeSquaresThenRaisesError [
+    self
+        should: [ Board with: -5 ]
+        raise: Error
+        withMessageText: 'The number of squares must be greater than 0'
 ]
 
 { #category : 'tests' }
@@ -52,21 +53,27 @@ BoardTests >> test004WhenInitializeBoardWithNegativeNumberThenRaiseAnError [
 
 { #category : 'tests' }
 BoardTests >> test005WhenPositionIsLessThanSquaresThenHasNotReachedGoal [
-    | board |
+    | board ship |
     board := Board with: 10.
-    self deny: (board hasReachedGoal: 5).
+	 ship := Ship named: 'Ship2'.
+    self deny: (board hasShipReachedGoal: ship withLaps: 2).
 ]
 
 { #category : 'tests' }
-BoardTests >> test006WhenPositionIsEqualToSquaresThenHasReachedGoal [
-    | board |
+BoardTests >> test006WhenShipHasCompletedRequiredLapsThenHasReachedGoal [
+    | board ship |
     board := Board with: 10.
-    self assert: (board hasReachedGoal: 10).
+    ship := Ship named: 'Ship2'.
+    ship addLap.
+    self assert: (board hasShipReachedGoal: ship withLaps: 1)..
 ]
 
 { #category : 'tests' }
-BoardTests >> test007WhenPositionIsGreaterThanSquaresThenHasReachedGoal [
-    | board |
+BoardTests >> test007WhenShipHasMoreLapsThanRequiredThenHasReachedGoal [
+    | board ship |
     board := Board with: 10.
-    self assert: (board hasReachedGoal: 15)
+    ship := Ship named: 'Ship2'.
+    ship addLap.
+    ship addLap.
+    self assert: (board hasShipReachedGoal: ship withLaps: 1).
 ]

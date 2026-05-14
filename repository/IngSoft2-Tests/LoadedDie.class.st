@@ -1,25 +1,25 @@
 Class {
-	#name : 'DiceLoaded',
+	#name : 'LoadedDie',
 	#superclass : 'Object',
 	#instVars : [
 		'value'
 	],
-	#category : 'IngSoft2-Model',
-	#package : 'IngSoft2-Model'
+	#category : 'IngSoft2-Tests',
+	#package : 'IngSoft2-Tests'
 }
 
 { #category : 'instance creation' }
-DiceLoaded class >> with: value [ 
+LoadedDie class >> with: value [ 
 	
 	value>0 ifTrue: [^ self new initializeWith: value] ifFalse:[Error signal: 'A loaded die must have a value greater than 0'] 
 ]
 
 { #category : 'initialization' }
-DiceLoaded >> initializeWith: anInteger [ 
+LoadedDie >> initializeWith: anInteger [ 
 	value := anInteger .
 ]
 
 { #category : 'as yet unclassified' }
-DiceLoaded >> roll [
+LoadedDie >> roll [
 	^value 
 ]
