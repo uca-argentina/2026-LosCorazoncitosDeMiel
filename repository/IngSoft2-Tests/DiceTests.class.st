@@ -17,7 +17,7 @@ DiceTests >> should: aFullBlockClosure raise: anError withMessageText: message [
 DiceTests >> test001WhenWeInitializeADiceWithZeroFacesThenRaiseError [
 
 	self
-	should: [DiceNormal with: 0] 
+	should: [Die with: 0] 
 	raise: Error
 	withMessageText: 'A dice must have at least 3 faces'
 ]
@@ -26,7 +26,7 @@ DiceTests >> test001WhenWeInitializeADiceWithZeroFacesThenRaiseError [
 DiceTests >> test002WhenADiceIsInitializedThenFacesDoesntEquals5 [
 
 	|aDice|
-	aDice := DiceNormal with: 6.
+	aDice := Die with: 6.
 	self deny: aDice faces equals: 5.
 		
 ]
@@ -35,7 +35,7 @@ DiceTests >> test002WhenADiceIsInitializedThenFacesDoesntEquals5 [
 DiceTests >> test003WhenADiceIsInitializedWith6ThenWhenWeRollTheNumberIsBetween1And6 [
 
 	|aDice|
-	aDice:= DiceNormal with: 6.
+	aDice:= Die with: 6.
 	 
 	self assert: ((aDice roll) between: 1 and: 6).
 ]
@@ -44,6 +44,6 @@ DiceTests >> test003WhenADiceIsInitializedWith6ThenWhenWeRollTheNumberIsBetween1
 DiceTests >> test004WhenADiceIsInitializedThenFacesEquals6 [
 
 	|aDice|
-	aDice:= DiceNormal with: 6. 
+	aDice:= Die with: 6. 
 	self assert: aDice faces equals: 6.
 ]

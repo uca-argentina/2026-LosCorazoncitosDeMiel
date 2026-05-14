@@ -1,5 +1,5 @@
 Class {
-	#name : 'DiceNormal',
+	#name : 'Die',
 	#superclass : 'Object',
 	#instVars : [
 		'faces'
@@ -9,23 +9,23 @@ Class {
 }
 
 { #category : 'instance creation' }
-DiceNormal class >> with: faces [ 
+Die class >> with: faces [ 
 	
 	faces>=3 ifTrue: [^ self new initializeWith: faces] ifFalse:[Error signal: 'A dice must have at least 3 faces'] 
 ]
 
 { #category : 'accessing' }
-DiceNormal >> faces [
+Die >> faces [
 	^ faces 
 ]
 
 { #category : 'initialization' }
-DiceNormal >> initializeWith: anInteger [ 
+Die >> initializeWith: anInteger [ 
 	faces:= anInteger .
 ]
 
 { #category : 'as yet unclassified' }
-DiceNormal >> roll [
+Die >> roll [
 
 	^ (1 to: faces) atRandom
 ]

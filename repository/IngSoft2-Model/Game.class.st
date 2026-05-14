@@ -29,7 +29,10 @@ Game class >> withShips: someShips dice: someDice board: aBoard laps: aLaps [
 
 { #category : 'testing' }
 Game >> hasFinished [
-    ^ ships anySatisfy: [ :ship | board hasReachedGoal: ship withLaps: lapsToWin ]
+    
+    ^ ships anySatisfy: [ :ship | board hasShipReachedGoal: ship withLaps: lapsToWin ].
+
+
 ]
 
 { #category : 'initialization' }
@@ -49,6 +52,11 @@ Game >> initializeWithShips: someShips dice: someDice board: aBoard laps: aLaps 
 	 lapsToWin := aLaps.
     turnIndex := 1.
 	
+]
+
+{ #category : 'as yet unclassified' }
+Game >> lapsOf: aShip [ 
+	^ aShip laps
 ]
 
 { #category : 'as yet unclassified' }
@@ -79,6 +87,6 @@ Game >> rollAllTheDice [
 { #category : 'as yet unclassified' }
 Game >> winner [
 	^ ships
-	detect: [:ship | board hasReachedGoal: ship withLaps: lapsToWin ]
+	detect: [:ship | board hasShipReachedGoal: ship withLaps: lapsToWin ]
 	ifNone: [Error signal: 'The game has not finished yet']
 ]

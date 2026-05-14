@@ -20,12 +20,7 @@ Board >> hasCompletedLap: newPosition [
 ]
 
 { #category : 'as yet unclassified' }
-Board >> hasReachedGoal: aPosition [
-	^ aPosition >= squares.
-]
-
-{ #category : 'as yet unclassified' }
-Board >> hasReachedGoal: aShip withLaps: aLapCount [
+Board >> hasShipReachedGoal: aShip withLaps: aLapCount [
     ^ aShip laps >= aLapCount
 ]
 

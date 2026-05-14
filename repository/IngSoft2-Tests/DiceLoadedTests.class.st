@@ -16,7 +16,7 @@ DiceLoadedTests >> should: aFullBlockClosure raise: anError withMessageText: mes
 { #category : 'running' }
 DiceLoadedTests >> test001WhenWeInitializeADiceLoadedWithZeroValueThenRaiseError [
 	self
-		should: [DiceLoaded with: 0] 
+		should: [LoadedDie with: 0] 
 		raise: Error
 		withMessageText: 'A loaded die must have a value greater than 0'
 ]
@@ -25,7 +25,7 @@ DiceLoadedTests >> test001WhenWeInitializeADiceLoadedWithZeroValueThenRaiseError
 DiceLoadedTests >> test002WhenWeRollADiceLoadedWith5ThenReturns5 [
 
 	|aDiceLoaded|
-	aDiceLoaded := DiceLoaded with:5.
+	aDiceLoaded := LoadedDie with:5.
 	self assert: aDiceLoaded roll equals:5.
 ]
 
@@ -33,7 +33,7 @@ DiceLoadedTests >> test002WhenWeRollADiceLoadedWith5ThenReturns5 [
 DiceLoadedTests >> test003WhenWeRollADiceLoadedMultipleTimesThenAlwaysReturnsSameValue [
 
 	|aDiceLoaded|
-	aDiceLoaded := DiceLoaded with:5.
+	aDiceLoaded := LoadedDie with:5.
 	self assert: aDiceLoaded roll equals:5.
 	self assert: aDiceLoaded roll equals:5.
 	self assert: aDiceLoaded roll equals:5.

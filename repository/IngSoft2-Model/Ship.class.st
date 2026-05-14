@@ -3,11 +3,17 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'position',
-		'laps'
+		'laps',
+		'name'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
 }
+
+{ #category : 'instance creation' }
+Ship class >> named: aName [ 
+	^self new initializeNamed: aName.
+]
 
 { #category : 'adding' }
 Ship >> addLap [
@@ -15,9 +21,10 @@ Ship >> addLap [
 ]
 
 { #category : 'initialization' }
-Ship >> initialize [
-    position := 1.
-	 laps := 0.
+Ship >> initializeNamed: aName [ 
+	position := 1.
+    laps := 0.
+    name := aName.
 ]
 
 { #category : 'accessing' }
@@ -28,6 +35,11 @@ Ship >> laps [
 { #category : 'as yet unclassified' }
 Ship >> moveTo: aPosition [
     position := aPosition
+]
+
+{ #category : 'accessing' }
+Ship >> name [
+	^ name
 ]
 
 { #category : 'instance creation' }
