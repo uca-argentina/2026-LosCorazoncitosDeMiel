@@ -88,6 +88,7 @@ Game >> playTurn [
 	newPosition := currentShip position + totalRoll.
 	(board hasCompletedLap: newPosition) ifTrue: [ currentShip addLap ].
 	currentShip moveTo: (board wrapPosition: newPosition).
+	(board effectAt: currentShip position) applyTo: currentShip on: self.
 	turnIndex := (turnIndex rem: ships size) + 1
 ]
 

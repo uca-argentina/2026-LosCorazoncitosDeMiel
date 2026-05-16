@@ -50,7 +50,7 @@ EffectTest >> test005WhenShipLandsOnMoonWalkThenOtherShipsGoBackN [
     ship2 := Ship named: 'Ship2'.
     ship2 moveTo: 5.
     dice := LoadedDie with: 3.
-    board := Board with: 10 parsecs:100 .
+    board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
     game := Game withShips: {ship1. ship2} dice: {dice} board: board laps: 2.
     effect := MoonWalk withSteps: 3.
     effect applyTo: ship1 on: game.
@@ -65,7 +65,7 @@ EffectTest >> test006WhenShipLandsOnAtomicBombThenAllShipsGoToPosition1 [
     ship1 moveTo: 5.
     ship2 moveTo: 8.
     dice := LoadedDie with: 3.
-    board := Board with: 10 parsecs:100 .
+    board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
     game := Game withShips: {ship1. ship2} dice: {dice} board: board laps: 2.
     effect := AtomicBomb new.
     effect applyTo: ship1 on: game.
@@ -78,7 +78,7 @@ EffectTest >> test007WhenShipLandsOnHyperJumpThenShipAdvancesByFirstParsec [
     | ship effect game dice board |
     ship := Ship named: 'Ship1'.
     dice := LoadedDie with: 1.
-    board := Board with: 10 parsecs: 100.
+    board := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
     game := Game withShips: {ship} dice: {dice} board: board laps: 2.
     effect := HyperJump withParsecs: {10. 5. 2}.
     effect applyTo: ship on: game.
@@ -90,7 +90,7 @@ EffectTest >> test008WhenShipLandsOnHyperJumpThenShipAdvancesByParsecs [
     | ship effect game dice board |
     ship := Ship named: 'Ship1'.
     dice := LoadedDie with: 1.
-    board := Board with: 10 parsecs: 100.
+    board := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
     game := Game withShips: {ship} dice: {dice} board: board laps: 2.
     effect := HyperJump withParsecs: {20. 10. 5}.
     effect applyTo: ship on: game.

@@ -20,7 +20,7 @@ GameTest >> test001WhenShipPlayTurnWithOneLoadedDiceWith6FacesThenThePositionEqu
 | ship dice board game |
 ship := Ship named: 'Ship1'.
 dice:= LoadedDie with: 6.
-board := Board with: 10 parsecs:100 .
+board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
 game := Game withShips: {ship} dice: {dice} board: board laps: 1.
 
 game playTurn.
@@ -39,7 +39,7 @@ ships:= OrderedCollection new.
 ships add: ship1.
 ships add: ship2.
 dice:= LoadedDie with: 6.
-board := Board with: 10 parsecs:100 .
+board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
 game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
@@ -60,7 +60,7 @@ ships:= OrderedCollection new.
 ships add: ship1.
 ships add: ship2.
 dice:= LoadedDie with: 6.
-board := Board with: 10 parsecs:100 .
+board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
 game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
@@ -80,7 +80,7 @@ ships:= OrderedCollection new.
 ships add: ship1.
 ships add: ship2.
 dice:= LoadedDie with: 6.
-board := Board with: 6 parsecs:100 .
+board := Board with: 6 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
 game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
@@ -96,7 +96,7 @@ GameTest >> test005WhenShipCompletesOneLapThenGameHasFinished [
     ship := Ship named: 'Ship1'.
 
     dice := LoadedDie with: 6.
-    board := Board with: 6 parsecs:100 .
+    board := Board with: 6 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
     game := Game withShips: {ship} dice: {dice} board: board laps: 1.
     
     game playTurn.
@@ -115,7 +115,7 @@ ships:= OrderedCollection new.
 ships add: ship1.
 ships add: ship2.
 dice:= LoadedDie with: 6.
-board := Board with: 10 parsecs:100 .
+board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
 game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
@@ -137,7 +137,7 @@ ships:= OrderedCollection new.
 ships add: ship1.
 
 dice:= LoadedDie with: 6.
-board := Board with: 10 parsecs:100 .
+board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
 game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
@@ -162,7 +162,7 @@ ships:= OrderedCollection new.
 ships add: ship1.
 ships add: ship2.
 dice:= LoadedDie with: 6.
-board := Board with: 10 parsecs:100 .
+board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
 game := Game withShips: ships dice: {dice} board: board laps: 1.
 
 game playTurn.
@@ -183,7 +183,7 @@ GameTest >> test008WhenGameHasNotFinishedThenWinnerRaisesError [
 	ships:= OrderedCollection new.
 	ships add: ship.
 	dice:= LoadedDie with:2.
-	board:= Board with: 10 parsecs:100 .
+	board:= Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
 	game:= Game withShips: ships  dice:{dice}  board: board laps: 1.
 	
 	self
@@ -197,7 +197,7 @@ GameTest >> test009WhenGameIsCreatedWithNoShipsThenRaiseError [
 	
 	self
 	
-	should:[Game withShips: OrderedCollection new dice:{LoadedDie with: 2}   board:(Board with: 10 parsecs:100 ) ]
+	should:[Game withShips: OrderedCollection new dice:{LoadedDie with: 2}   board:(Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new)) ]
 	raise: Error
 	withMessageText: 'Game must have at least one ship'
 ]
@@ -206,7 +206,7 @@ GameTest >> test009WhenGameIsCreatedWithNoShipsThenRaiseError [
 GameTest >> test010WhenGameIsCreatedWithNoDiceThenRaiseError [
 	
     self
-        should: [ Game withShips: {Ship new} dice: {} board: (Board with: 10 parsecs:100 ) ]
+        should: [ Game withShips: {Ship new} dice: {} board: (Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) ) ]
         raise: Error
         withMessageText: 'Game must have at least one dice'
 ]
@@ -218,7 +218,7 @@ GameTest >> test011WhenPlayTurnWithTwoDifferentLoadedDiceThenShipAdvancesTheirSu
 
     dice1 := LoadedDie with: 3.
     dice2 := LoadedDie with: 4.
-    board := Board with: 20 parsecs:100 .
+    board := Board with: 20 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
     game := Game withShips: {ship} dice: {dice1. dice2} board: board laps: 1.
     
     game playTurn.
@@ -233,7 +233,7 @@ GameTest >> test012WhenTwoShipsPlayWithTwoDiceThenBothAdvanceTheirSum [
 ship2 := Ship named: 'Ship2'.
     dice1 := LoadedDie with: 3.
     dice2 := LoadedDie with: 4.
-    board := Board with: 20 parsecs:100 .
+    board := Board with: 20 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
     game := Game withShips: {ship1. ship2} dice: {dice1. dice2} board: board laps: 1.
     
     game playTurn.
@@ -248,7 +248,7 @@ GameTest >> test013WhenShipAdvancesBeyondBoardSizeThenLapsEquals1 [
     | ship dice board game |
     ship := Ship named: 'Ship1'.
     dice := LoadedDie with: 6.
-    board := Board with: 6 parsecs:100 .
+    board := Board with: 6 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
     game := Game withShips: {ship} dice: {dice} board: board laps: 1.
     
     game playTurn.
@@ -262,7 +262,7 @@ GameTest >> test014WhenShipAdvancesBeyondBoardSizeThenPositionWrapsAround [
     ship := Ship named: 'Ship1'.
 
     dice := LoadedDie with: 6.
-    board := Board with: 6 parsecs:100 .
+    board := Board with: 6 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
     game := Game withShips: {ship} dice: {dice} board: board laps: 1.
     
     game playTurn.
@@ -275,7 +275,7 @@ GameTest >> test015WhenShipCompletesOneLapThenGameKnowsLapOfShip [
     | ship dice board game |
     ship := Ship named: 'Ship1'.
     dice := LoadedDie with: 6.
-    board := Board with: 6 parsecs:100 . 
+    board := Board with: 6 parsecs:100 effects: (Array new: 10 withAll: NoEffect new). 
     game := Game withShips: {ship} dice: {dice} board: board laps: 2.
     
     game playTurn.
@@ -289,11 +289,24 @@ GameTest >> test016WhenShip1PlaysTurnThenShip2HasNotMoved [
     ship1 := Ship named: 'Ship1'.
 ship2 := Ship named: 'Ship2'.
     dice := LoadedDie with: 6.
-    board := Board with: 10 parsecs:100 .
+    board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
     game := Game withShips: {ship1. ship2} dice: {dice} board: board laps: 2.
     
     game playTurn.
     
     self assert: ship1 position equals: 7.
     self assert: ship2 position equals: 1.
+]
+
+{ #category : 'running' }
+GameTest >> test017WhenShipLandsOnSpeedUpSquareThenPositionAdvances4 [
+    | ship dice board game |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 1.
+    board := Board with: 10 parsecs: 100 effects: { NoEffect new. SpeedUp new. NoEffect new. NoEffect new. NoEffect new. NoEffect new. NoEffect new. NoEffect new. NoEffect new. NoEffect new }.
+    game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+    
+    game playTurn.
+    
+    self assert: ship position equals: 6.
 ]

@@ -16,7 +16,7 @@ BoardTests >> should: aBlock raise: anErrorClass withMessageText: aMessage [
 { #category : 'tests' }
 BoardTests >> test001WhenBoardIsCreatedWithZeroSquaresThenRaisesError [
     self
-        should: [ Board with: 0 parsecs:100 ]
+        should: [ Board with: 0 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) ]
         raise: Error
         withMessageText: 'The number of squares must be greater than 0'.
 
@@ -26,7 +26,7 @@ BoardTests >> test001WhenBoardIsCreatedWithZeroSquaresThenRaisesError [
 { #category : 'tests' }
 BoardTests >> test002WhenBoardIsCreatedWithNegativeSquaresThenRaisesError [
     self
-        should: [ Board with: -5 parsecs:100 ]
+        should: [ Board with: -5 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) ]
         raise: Error
         withMessageText: 'The number of squares must be greater than 0'
 ]
@@ -36,7 +36,7 @@ BoardTests >> test003WhenInitializeBoardWith10CellsThenSquareCountEqualsTo10 [
     
 	| aBoard |
  
-   	aBoard := Board with: 10 parsecs:100 .
+   	aBoard := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
    self assert: aBoard squareCount equals: 10.
 ]
 
@@ -46,7 +46,7 @@ BoardTests >> test004WhenInitializeBoardWithNegativeNumberThenRaiseAnError [
 	| aBoard |
    
 	self
-        should: [ aBoard := Board with: -10 parsecs:100 . ]
+        should: [ aBoard := Board with: -10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new). ]
         raise: Error
         withMessageText: 'The number of squares must be greater than 0'
 ]
@@ -54,7 +54,7 @@ BoardTests >> test004WhenInitializeBoardWithNegativeNumberThenRaiseAnError [
 { #category : 'tests' }
 BoardTests >> test005WhenPositionIsLessThanSquaresThenHasNotReachedGoal [
     | board ship |
-    board := Board with: 10 parsecs:100 .
+    board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
 	 ship := Ship named: 'Ship2'.
     self deny: (board hasShipReachedGoal: ship withLaps: 2).
 ]
@@ -62,7 +62,7 @@ BoardTests >> test005WhenPositionIsLessThanSquaresThenHasNotReachedGoal [
 { #category : 'tests' }
 BoardTests >> test006WhenShipHasCompletedRequiredLapsThenHasReachedGoal [
     | board ship |
-    board := Board with: 10 parsecs:100 .
+    board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
     ship := Ship named: 'Ship2'.
     ship addLap.
     self assert: (board hasShipReachedGoal: ship withLaps: 1)..
@@ -71,7 +71,7 @@ BoardTests >> test006WhenShipHasCompletedRequiredLapsThenHasReachedGoal [
 { #category : 'tests' }
 BoardTests >> test007WhenShipHasMoreLapsThanRequiredThenHasReachedGoal [
     | board ship |
-    board := Board with: 10 parsecs:100 .
+    board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
     ship := Ship named: 'Ship2'.
     ship addLap.
     ship addLap.
