@@ -99,6 +99,16 @@ Game >> positionOf: aShip [
 ]
 
 { #category : 'as yet unclassified' }
+Game >> rankOf: aShip [
+    | sorted |
+    sorted := ships asSortedCollection: [ :a :b | 
+        a laps = b laps 
+            ifTrue: [ a position > b position ]
+            ifFalse: [ a laps > b laps ] ].
+    ^ sorted indexOf: aShip.
+]
+
+{ #category : 'as yet unclassified' }
 Game >> rollAllTheDice [
 
 	^ dice inject: 0 into: [ :sum  :aDie | sum  + aDie roll ]

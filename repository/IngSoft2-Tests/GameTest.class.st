@@ -310,3 +310,37 @@ GameTest >> test017WhenShipLandsOnSpeedUpSquareThenPositionAdvances4 [
     
     self assert: ship position equals: 6.
 ]
+
+{ #category : 'running' }
+GameTest >> test018WhenShip1HasMoreLapsThenShip1IsFirst [
+    | ship1 ship2 dice board game |
+    ship1 := Ship named: 'Ship1'.
+    ship2 := Ship named: 'Ship2'.
+    dice := LoadedDie with: 6.
+    board := LoadedBoard with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+    game := Game withShips: {ship1. ship2} dice: {dice} board: board laps: 3.
+    
+    game playTurn.  "ship1 → posición 7, vuelta 0"
+    game playTurn.  "ship2 → posición 7, vuelta 0"
+    game playTurn.  "ship1 → posición 3, vuelta 1"
+    
+    self assert: (game rankOf: ship1) equals: 1.
+    self assert: (game rankOf: ship2) equals: 2.
+]
+
+{ #category : 'running' }
+GameTest >> test019WhenShipsHaveSameLapsButDifferentPositionThenHigherPositionIsFirst [
+    | ship1 ship2 dice board game |
+    ship1 := Ship named: 'Ship1'.
+    ship2 := Ship named: 'Ship2'.
+    dice := LoadedDie with: 3.
+    board := LoadedBoard with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+    game := Game withShips: {ship1. ship2} dice: {dice} board: board laps: 3.
+    
+    game playTurn.  "ship1 → posición 4"
+    game playTurn.  "ship2 → posición 4"
+    game playTurn.  "ship1 → posición 7"
+    
+    self assert: (game rankOf: ship1) equals: 1.
+    self assert: (game rankOf: ship2) equals: 2.
+]
