@@ -27,6 +27,11 @@ Game class >> withShips: someShips dice: someDice board: aBoard laps: aLaps [
 	^ self new initializeWithShips: someShips dice: someDice board: aBoard laps: aLaps
 ]
 
+{ #category : 'as yet unclassified' }
+Game >> board [
+    ^ board
+]
+
 { #category : 'testing' }
 Game >> hasFinished [
     
@@ -57,6 +62,20 @@ Game >> initializeWithShips: someShips dice: someDice board: aBoard laps: aLaps 
 { #category : 'as yet unclassified' }
 Game >> lapsOf: aShip [ 
 	^ aShip laps
+]
+
+{ #category : 'initialization' }
+Game >> moveAllShipsExcept: aShip back: aNumber [
+    ships do: [ :ship |
+        ship = aShip ifFalse: [
+            ship moveTo: (ship position - aNumber max: 1) ] ].
+	
+]
+
+{ #category : 'initialization' }
+Game >> moveAllShipsToStart [
+	ships do: [ :ship | ship moveTo: 1 ].
+	
 ]
 
 { #category : 'as yet unclassified' }

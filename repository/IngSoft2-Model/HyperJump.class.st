@@ -1,0 +1,29 @@
+Class {
+	#name : 'HyperJump',
+	#superclass : 'Effect',
+	#instVars : [
+		'parsecs',
+		'currentIndex'
+	],
+	#category : 'IngSoft2-Model',
+	#package : 'IngSoft2-Model'
+}
+
+{ #category : 'as yet unclassified' }
+HyperJump class >> withParsecs: aCollection [ 
+	^ self new initializeWith: aCollection.
+]
+
+{ #category : 'initialization' }
+HyperJump >> applyTo: aShip on: aGame [
+    | steps |
+    steps := aGame board squaresFor: (parsecs at: currentIndex).
+    aShip moveTo: aShip position + steps.
+    currentIndex := (currentIndex rem: parsecs size) + 1.
+]
+
+{ #category : 'initialization' }
+HyperJump >> initializeWith: aCollection [
+    parsecs := aCollection asSortedCollection: [ :a :b | a > b ].
+    currentIndex := 1.
+]
