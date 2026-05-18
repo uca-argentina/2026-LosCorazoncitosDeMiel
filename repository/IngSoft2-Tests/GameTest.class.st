@@ -357,3 +357,17 @@ GameTest >> test020WhenGameIsCreatedWithoutLapsThenDefaultsToOneLap [
     
     self assert: game hasFinished.
 ]
+
+{ #category : 'running' }
+GameTest >> test021WhenShipLandsOnSpeedUpAndCrossesGoalThenLapIsAdded [
+    | ship dice board game |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 1.
+    board := Board with: 10 parsecs: 100 effects: { NoEffect new. NoEffect new. NoEffect new. NoEffect new. NoEffect new. NoEffect new. NoEffect new. SpeedUp new. NoEffect new. NoEffect new }.
+    game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+    
+    ship moveTo: 7.
+    game playTurn.
+    
+    self assert: ship laps equals: 1.
+]

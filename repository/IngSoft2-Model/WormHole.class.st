@@ -7,8 +7,5 @@ Class {
 
 { #category : 'as yet unclassified' }
 WormHole >> applyTo: aShip on: aGame [
-	
-    | newPosition |
-newPosition := aShip position - 4.
-    aShip moveTo: (aGame board wrapPosition: newPosition).
+    aGame moveShip: aShip by: -4.
 ]

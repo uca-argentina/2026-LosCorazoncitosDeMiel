@@ -6,6 +6,6 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
-SpeedUp >> applyTo: aShip on: aGame [ 
-	aShip moveTo: (aGame board wrapPosition: aShip position + 4).
+SpeedUp >> applyTo: aShip on: aGame [
+    aGame moveShip: aShip by: 4.
 ]

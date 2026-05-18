@@ -32,6 +32,13 @@ Game >> board [
     ^ board
 ]
 
+{ #category : 'as yet unclassified' }
+Game >> checkLapFor: aShip [
+    (board hasCompletedLap: aShip position) ifTrue: [ 
+        aShip addLap.
+        aShip moveTo: (board wrapPosition: aShip position) ].
+]
+
 { #category : 'testing' }
 Game >> hasFinished [
     
@@ -80,17 +87,22 @@ Game >> moveAllShipsToStart [
 ]
 
 { #category : 'as yet unclassified' }
-Game >> playTurn [
+Game >> moveShip: aShip by: aNumber [
+    | newPosition |
+    newPosition := aShip position + aNumber.
+    (board hasCompletedLap: newPosition) ifTrue: [ aShip addLap ].
+    aShip moveTo: (board wrapPosition: newPosition).
+]
 
-	| currentShip totalRoll newPosition |
-	self hasFinished ifTrue: [Error signal: 'The game has already finished'].
-	currentShip := ships at: turnIndex.
-	totalRoll := self rollAllTheDice.
-	newPosition := currentShip position + totalRoll.
-	(board hasCompletedLap: newPosition) ifTrue: [ currentShip addLap ].
-	currentShip moveTo: (board wrapPosition: newPosition).
-	(board effectAt: currentShip position) applyTo: currentShip on: self.
-	turnIndex := (turnIndex rem: ships size) + 1
+{ #category : 'as yet unclassified' }
+Game >> playTurn [
+    | currentShip totalRoll |
+    self hasFinished ifTrue: [Error signal: 'The game has already finished'].
+    currentShip := ships at: turnIndex.
+    totalRoll := self rollAllTheDice.
+    self moveShip: currentShip by: totalRoll.
+    (board effectAt: currentShip position) applyTo: currentShip on: self.
+    turnIndex := (turnIndex rem: ships size) + 1.
 ]
 
 { #category : 'as yet unclassified' }
