@@ -7,5 +7,5 @@ Class {
 
 { #category : 'as yet unclassified' }
 SpeedUp >> applyTo: aShip on: aGame [ 
-	aShip moveTo: aShip position + 4.
+	aShip moveTo: (aGame board wrapPosition: aShip position + 4).
 ]
