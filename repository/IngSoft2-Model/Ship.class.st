@@ -42,11 +42,6 @@ Ship >> name [
 	^ name
 ]
 
-{ #category : 'instance creation' }
-Ship >> newPosition [
-	self shouldBeImplemented.
-]
-
 { #category : 'initialization' }
 Ship >> position [
 
