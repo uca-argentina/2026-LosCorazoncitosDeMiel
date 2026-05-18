@@ -159,3 +159,16 @@ EffectTest >> test012WhenShipLandsOnHyperJumpNearEndOfBoardThenPositionWraps [
     effect applyTo: ship on: game.
     self assert: ship position equals: 3.
 ]
+
+{ #category : 'running' }
+EffectTest >> test013WhenShipLandsOnHyperJumpAndCrossesGoalThenLapIsAdded [
+    | ship effect game dice board |
+    ship := Ship named: 'Ship1'.
+    ship moveTo: 8.
+    dice := LoadedDie with: 1.
+    board := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+    game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+    effect := HyperJump withParsecs: {50. 20. 10}.
+    effect applyTo: ship on: game.
+    self assert: ship laps equals: 1.
+]
