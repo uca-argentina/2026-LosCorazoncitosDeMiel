@@ -344,3 +344,16 @@ GameTest >> test019WhenShipsHaveSameLapsButDifferentPositionThenHigherPositionIs
     self assert: (game rankOf: ship1) equals: 1.
     self assert: (game rankOf: ship2) equals: 2.
 ]
+
+{ #category : 'running' }
+GameTest >> test020WhenGameIsCreatedWithoutLapsThenDefaultsToOneLap [
+    | ship dice board game |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 6.
+    board := Board with: 6 parsecs: 100 effects: (Array new: 6 withAll: NoEffect new).
+    game := Game withShips: {ship} dice: {dice} board: board.
+    
+    game playTurn.
+    
+    self assert: game hasFinished.
+]

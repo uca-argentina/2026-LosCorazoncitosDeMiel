@@ -42,11 +42,12 @@ Game >> hasFinished [
 
 { #category : 'initialization' }
 Game >> initializeWithShips: someShips dice: someDice board: aBoard [
-    ships := someShips.
-    dice := someDice.
-    board := aBoard.
-    turnIndex := 1.
-	
+
+	ships := someShips.
+	dice := someDice.
+	board := aBoard.
+	lapsToWin := 1.
+	turnIndex := 1
 ]
 
 { #category : 'initialization' }
