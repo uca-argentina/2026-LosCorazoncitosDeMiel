@@ -6,7 +6,6 @@ Class {
 		'dice',
 		'board',
 		'turnIndex',
-		'laps',
 		'lapsToWin'
 	],
 	#category : 'IngSoft2-Model',
@@ -21,30 +20,30 @@ Game class >> withShips: someShips dice: someDice board: aBoard [
 ]
 
 { #category : 'as yet unclassified' }
-Game class >> withShips: someShips dice: someDice board: aBoard laps: aLaps [
-	someShips isEmpty ifTrue: [ Error signal: 'Game must have at least one ship'].
-	someDice isEmpty ifTrue: [ Error signal: 'Game must have at least one dice'].
-	^ self new initializeWithShips: someShips dice: someDice board: aBoard laps: aLaps
+Game class >> withShips: arg1 dice: arg2 board: arg3 laps: arg4 [
+
+	arg1 isEmpty ifTrue: [
+		Error signal: 'Game must have at least one ship' ].
+	arg2 isEmpty ifTrue: [
+		Error signal: 'Game must have at least one dice' ].
+	^ self new
+		  initializeWithShips: arg1
+		  dice: arg2
+		  board: arg3
+		  laps: arg4
 ]
 
 { #category : 'as yet unclassified' }
 Game >> board [
-    ^ board
-]
 
-{ #category : 'as yet unclassified' }
-Game >> checkLapFor: aShip [
-    (board hasCompletedLap: aShip position) ifTrue: [ 
-        aShip addLap.
-        aShip moveTo: (board wrapPosition: aShip position) ].
+	^ board
 ]
 
 { #category : 'testing' }
 Game >> hasFinished [
-    
-    ^ ships anySatisfy: [ :ship | board hasShipReachedGoal: ship withLaps: lapsToWin ].
 
-
+	^ ships anySatisfy: [ :arg1 |
+		  board hasShipReachedGoal: arg1 withLaps: lapsToWin ]
 ]
 
 { #category : 'initialization' }
@@ -58,18 +57,19 @@ Game >> initializeWithShips: someShips dice: someDice board: aBoard [
 ]
 
 { #category : 'initialization' }
-Game >> initializeWithShips: someShips dice: someDice board: aBoard laps: aLaps [
-    ships := someShips.
-    dice := someDice.
-    board := aBoard.
-	 lapsToWin := aLaps.
-    turnIndex := 1.
-	
+Game >> initializeWithShips: arg1 dice: arg2 board: arg3 laps: arg4 [
+
+	ships := arg1.
+	dice := arg2.
+	board := arg3.
+	lapsToWin := arg4.
+	turnIndex := 1
 ]
 
 { #category : 'as yet unclassified' }
-Game >> lapsOf: aShip [ 
-	^ aShip laps
+Game >> lapsOf: arg1 [
+
+	^ arg1 laps
 ]
 
 { #category : 'initialization' }
@@ -82,8 +82,8 @@ Game >> moveAllShipsExcept: aShip back: aNumber [
 
 { #category : 'initialization' }
 Game >> moveAllShipsToStart [
-	ships do: [ :ship | ship moveTo: 1 ].
-	
+
+	ships do: [ :arg1 | arg1 moveTo: 1 ]
 ]
 
 { #category : 'as yet unclassified' }
@@ -112,13 +112,14 @@ Game >> positionOf: aShip [
 ]
 
 { #category : 'as yet unclassified' }
-Game >> rankOf: aShip [
-    | sorted |
-    sorted := ships asSortedCollection: [ :a :b | 
-        a laps = b laps 
-            ifTrue: [ a position > b position ]
-            ifFalse: [ a laps > b laps ] ].
-    ^ sorted indexOf: aShip.
+Game >> rankOf: arg1 [
+
+	| tmp1 |
+	tmp1 := ships asSortedCollection: [ :arg2 :arg3 |
+			        arg2 laps = arg3 laps
+				        ifTrue: [ arg2 position > arg3 position ]
+				        ifFalse: [ arg2 laps > arg3 laps ] ].
+	^ tmp1 indexOf: arg1
 ]
 
 { #category : 'as yet unclassified' }
@@ -129,7 +130,9 @@ Game >> rollAllTheDice [
 
 { #category : 'as yet unclassified' }
 Game >> winner [
+
 	^ ships
-	detect: [:ship | board hasShipReachedGoal: ship withLaps: lapsToWin ]
-	ifNone: [Error signal: 'The game has not finished yet']
+		  detect: [ :arg1 |
+		  board hasShipReachedGoal: arg1 withLaps: lapsToWin ]
+		  ifNone: [ Error signal: 'The game has not finished yet' ]
 ]
