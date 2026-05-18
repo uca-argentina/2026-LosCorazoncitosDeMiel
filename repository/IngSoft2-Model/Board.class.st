@@ -22,14 +22,6 @@ Board >> effectAt: aPosition [
 ]
 
 { #category : 'as yet unclassified' }
-Board >> generateEffectsFor: aSquareCount [
-    | effects |
-    effects := OrderedCollection new.
-    1 to: aSquareCount do: [ :i | effects add: self randomEffect ].
-    ^ effects.
-]
-
-{ #category : 'as yet unclassified' }
 Board >> hasCompletedLap: newPosition [
     ^ newPosition > squares
 ]
