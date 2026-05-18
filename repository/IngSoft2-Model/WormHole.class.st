@@ -10,5 +10,5 @@ WormHole >> applyTo: aShip on: aGame [
 	
     | newPosition |
 newPosition := aShip position - 4.
-    aShip moveTo: (newPosition max: 1).
+    aShip moveTo: (aGame board wrapPosition: newPosition).
 ]

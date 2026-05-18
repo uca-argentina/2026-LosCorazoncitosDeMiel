@@ -49,5 +49,6 @@ Ship >> newPosition [
 
 { #category : 'initialization' }
 Ship >> position [
-    ^ position
+
+	^ position
 ]
