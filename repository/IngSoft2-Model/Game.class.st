@@ -68,7 +68,7 @@ Game >> lapsOf: aShip [
 Game >> moveAllShipsExcept: aShip back: aNumber [
     ships do: [ :ship |
         ship = aShip ifFalse: [
-            ship moveTo: (ship position - aNumber max: 1) ] ].
+            ship moveTo: (board wrapPosition: ship position - aNumber)] ].
 	
 ]
 

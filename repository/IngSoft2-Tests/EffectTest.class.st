@@ -132,3 +132,17 @@ EffectTest >> test010WhenShipLandsOnWormHoleAt2ThenPositionWrapsToEnd [
     effect applyTo: ship on: game.
     self assert: ship position equals: 8.
 ]
+
+{ #category : 'running' }
+EffectTest >> test011WhenShipIsMovedByMoonWalkBeyondStartThenPositionWraps [
+    | ship1 ship2 effect game dice board |
+    ship1 := Ship named: 'Ship1'.
+    ship2 := Ship named: 'Ship2'.
+    ship2 moveTo: 2.
+    dice := LoadedDie with: 1.
+    board := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+    game := Game withShips: {ship1. ship2} dice: {dice} board: board laps: 2.
+    effect := MoonWalk withSteps: 3.
+    effect applyTo: ship1 on: game.
+    self assert: ship2 position equals: 9.
+]
