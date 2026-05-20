@@ -407,4 +407,33 @@ GameTest >> test025WhenShipLandsOnAtomicBombAfterCompletingALapThenLapIsKept [
     
     self assert: ship position equals: 1.
     self assert: ship laps equals: 1.
+GameTest >> test023WhenShipLandsOnSpeedUpThatLeadsToWormHoleThenWormHoleDoesNotTrigger [
+    | ship dice board game effects |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 2.
+    effects := Array new: 10 withAll: NoEffect new.
+    effects at: 3 put: SpeedUp new.
+    effects at: 7 put: WormHole new.
+    board := Board with: 10 parsecs: 100 effects: effects.
+    game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+    
+    game playTurn.
+    
+    self assert: ship position equals: 7.
+]
+
+{ #category : 'running' }
+GameTest >> test024WhenShipLandsOnWormHoleThatLeadsToSpeedUpThenSpeedUpDoesNotTrigger [
+    | ship dice board game effects |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 7.
+    effects := Array new: 10 withAll: NoEffect new.
+    effects at: 4 put: SpeedUp new.
+    effects at: 8 put: WormHole new.
+    board := Board with: 10 parsecs: 100 effects: effects.
+    game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+    
+    game playTurn.
+    
+    self assert: ship position equals: 4.
 ]
