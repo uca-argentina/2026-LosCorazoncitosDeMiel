@@ -172,3 +172,44 @@ EffectTest >> test013WhenShipLandsOnHyperJumpAndCrossesGoalThenLapIsAdded [
     effect applyTo: ship on: game.
     self assert: ship laps equals: 1.
 ]
+
+{ #category : 'tests' }
+EffectTest >> test014WhenHyperJumpIsAppliedFourTimesThenParsecsCycleFromHighestToLowestAndReset [
+    | ship effect game dice board |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 1.
+    board := Board with: 20 parsecs: 100 effects: (Array new: 20 withAll: NoEffect new).
+    game := Game withShips: {ship} dice: {dice} board: board laps: 5.
+    effect := HyperJump withParsecs: {20. 10. 5}.
+
+    effect applyTo: ship on: game.
+    self assert: ship position equals: 5.
+
+    effect applyTo: ship on: game.
+    self assert: ship position equals: 7.
+
+    effect applyTo: ship on: game.
+    self assert: ship position equals: 8.
+
+    effect applyTo: ship on: game.
+    self assert: ship position equals: 12.
+]
+
+{ #category : 'tests' }
+EffectTest >> test015WhenHyperJumpReceivesUnorderedParsecsThenAppliesThemFromHighestToLowest [
+    | ship effect game dice board |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 1.
+    board := Board with: 20 parsecs: 100 effects: (Array new: 20 withAll: NoEffect new).
+    game := Game withShips: {ship} dice: {dice} board: board laps: 5.
+    effect := HyperJump withParsecs: {5. 20. 10}.
+
+    effect applyTo: ship on: game.
+    self assert: ship position equals: 5.
+
+    effect applyTo: ship on: game.
+    self assert: ship position equals: 7.
+
+    effect applyTo: ship on: game.
+    self assert: ship position equals: 8.
+]
