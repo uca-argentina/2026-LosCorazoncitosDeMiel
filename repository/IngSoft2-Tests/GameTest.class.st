@@ -393,6 +393,20 @@ GameTest >> test022WhenShipsHaveSameLapsButDifferentPositionThenHigherPositionIs
 ]
 
 { #category : 'running' }
+GameTest >> test025WhenShipLandsOnAtomicBombAfterCompletingALapThenLapIsKept [
+    | ship dice board game effects |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 4.
+    effects := Array new: 10 withAll: NoEffect new.
+    effects at: 5 put: AtomicBomb new.
+    board := Board with: 10 parsecs: 100 effects: effects.
+    game := Game withShips: {ship} dice: {dice} board: board laps: 3.
+    
+    ship addLap.
+    game playTurn.
+    
+    self assert: ship position equals: 1.
+    self assert: ship laps equals: 1.
 GameTest >> test023WhenShipLandsOnSpeedUpThatLeadsToWormHoleThenWormHoleDoesNotTrigger [
     | ship dice board game effects |
     ship := Ship named: 'Ship1'.

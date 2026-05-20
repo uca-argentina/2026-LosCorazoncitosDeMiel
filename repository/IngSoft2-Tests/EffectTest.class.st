@@ -174,6 +174,26 @@ EffectTest >> test013WhenShipLandsOnHyperJumpAndCrossesGoalThenLapIsAdded [
 ]
 
 { #category : 'tests' }
+EffectTest >> test016WhenAtomicBombIsAppliedThenAllShipsKeepTheirLaps [
+    | ship1 ship2 effect game dice board |
+    ship1 := Ship named: 'Ship1'.
+    ship2 := Ship named: 'Ship2'.
+    ship1 moveTo: 5.
+    ship2 moveTo: 8.
+    ship1 addLap.
+    ship1 addLap.
+    ship2 addLap.
+    dice := LoadedDie with: 1.
+    board := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+    game := Game withShips: {ship1. ship2} dice: {dice} board: board laps: 5.
+    effect := AtomicBomb new.
+    
+    effect applyTo: ship1 on: game.
+    
+    self assert: ship1 position equals: 1.
+    self assert: ship2 position equals: 1.
+    self assert: ship1 laps equals: 2.
+    self assert: ship2 laps equals: 1.
 EffectTest >> test014WhenHyperJumpIsAppliedFourTimesThenParsecsCycleFromHighestToLowestAndReset [
     | ship effect game dice board |
     ship := Ship named: 'Ship1'.
