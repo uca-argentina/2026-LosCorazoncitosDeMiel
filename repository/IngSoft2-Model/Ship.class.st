@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'position',
 		'laps',
-		'name'
+		'name',
+		'hand'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
@@ -20,11 +21,17 @@ Ship >> addLap [
 	laps:= laps + 1.
 ]
 
+{ #category : 'accessing' }
+Ship >> hand [
+	^ hand 
+]
+
 { #category : 'initialization' }
 Ship >> initializeNamed: aName [ 
 	position := 1.
     laps := 0.
     name := aName.
+	 hand := OrderedCollection new.
 ]
 
 { #category : 'testing' }
@@ -53,4 +60,9 @@ Ship >> name [
 Ship >> position [
 
 	^ position
+]
+
+{ #category : 'adding' }
+Ship >> receive: aCard [ 
+	hand add: aCard
 ]
