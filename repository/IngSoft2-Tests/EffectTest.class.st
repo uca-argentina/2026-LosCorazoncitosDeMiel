@@ -194,6 +194,7 @@ EffectTest >> test016WhenAtomicBombIsAppliedThenAllShipsKeepTheirLaps [
     self assert: ship2 position equals: 1.
     self assert: ship1 laps equals: 2.
     self assert: ship2 laps equals: 1.
+]
 EffectTest >> test014WhenHyperJumpIsAppliedFourTimesThenParsecsCycleFromHighestToLowestAndReset [
     | ship effect game dice board |
     ship := Ship named: 'Ship1'.
