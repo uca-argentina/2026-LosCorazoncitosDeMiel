@@ -25,29 +25,29 @@ Board >> applyEffectOf: aPosition to: aShip on: aGame [
     (effects at: aPosition) applyTo: aShip on: aGame
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'testing' }
 Board >> hasCompletedLap: newPosition [
     ^ newPosition > squares
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'testing' }
 Board >> hasShipReachedGoal: aShip withLaps: aLapCount [
     ^ aShip laps >= aLapCount
 ]
 
-{ #category : 'initialization' }
+{ #category : 'accessing' }
 Board >> initializeWith: aSquareCount parsecs: aParsecCount effects: aCollection [
     squares := aSquareCount.
     totalParsecs := aParsecCount.
 		effects := aCollection.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Board >> lapsCompletedFor: aPosition [
     ^ (aPosition - 1) // squares
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Board >> squareCount [
 
 	^ squares 
@@ -58,7 +58,7 @@ Board >> squaresFor: aParsecAmount [
     ^ (aParsecAmount / (totalParsecs / squares)) truncated
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Board >> wrapPosition: aPosition [
     ^ ((aPosition - 1) \\ squares) + 1
 ]

@@ -14,7 +14,7 @@ HyperJump class >> withParsecs: aCollection [
 	^ self new initializeWith: aCollection.
 ]
 
-{ #category : 'initialization' }
+{ #category : 'applying' }
 HyperJump >> applyTo: aShip on: aGame [
     
 	| steps |

@@ -26,7 +26,7 @@ Game class >> withShips: someShips dice: someDice board: aBoard laps: aLapCount 
     ^ self new initializeWithShips: someShips dice: someDice board: aBoard laps: aLapCount
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Game >> board [
 
 	^ board
@@ -59,7 +59,7 @@ Game >> initializeWithShips: arg1 dice: arg2 board: arg3 laps: arg4 [
 	turnIndex := 1
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Game >> lapsOf: arg1 [
 
 	^ arg1 laps
@@ -79,7 +79,7 @@ Game >> moveAllShipsToStart [
 	ships do: [ :arg1 | arg1 moveTo: 1 ]
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'moving' }
 Game >> moveShip: aShip by: aNumber [
     | newPosition lapsCompleted |
     newPosition := aShip position + aNumber.
@@ -101,7 +101,7 @@ Game >> playTurn [
 	turnIndex := (turnIndex rem: ships size) + 1
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Game >> positionOf: aShip [
 
 	^ aShip position
@@ -115,18 +115,18 @@ Game >> rankOf: aShip [
     ^ rankedShips indexOf: aShip
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'playing' }
 Game >> rollAllTheDice [
 
 	^ dice inject: 0 into: [ :sum  :aDie | sum  + aDie roll ]
 ]
 
-{ #category : 'initialization' }
+{ #category : 'accessing' }
 Game >> squaresFor: aParsecAmount [
     ^ board squaresFor: aParsecAmount
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Game >> winner [
 
 	^ ships

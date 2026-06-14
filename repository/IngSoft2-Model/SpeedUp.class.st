@@ -5,7 +5,7 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'applying' }
 SpeedUp >> applyTo: aShip on: aGame [
     aGame moveShip: aShip by: 4.
 ]

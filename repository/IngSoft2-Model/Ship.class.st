@@ -39,7 +39,7 @@ Ship >> laps [
 	^ laps
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'moving' }
 Ship >> moveTo: aPosition [
     position := aPosition
 ]

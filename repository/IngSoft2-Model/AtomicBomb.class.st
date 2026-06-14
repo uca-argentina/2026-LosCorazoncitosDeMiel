@@ -5,7 +5,7 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'initialization' }
+{ #category : 'applying' }
 AtomicBomb >> applyTo: aShip on: aGame [ 
 	aGame moveAllShipsToStart.
 ]
