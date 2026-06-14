@@ -53,3 +53,20 @@ ShipTest >> test006WhenShipIsCreatedWithNameThenNameIsCorrect [
     ship := Ship named: 'Enterprise'.
     self assert: ship name equals: 'Enterprise'.
 ]
+
+{ #category : 'running' }
+ShipTest >> test007WhenShipIsCreatedThenHandIsEmpty [
+    | ship |
+    ship := Ship named: 'Ship1'.
+    self assert: ship hand isEmpty.
+]
+
+{ #category : 'running' }
+ShipTest >> test008WhenShipReceivesACardThenHandContainsThatCard [
+    | ship card |
+    ship := Ship named: 'Ship1'.
+    card := Card new.
+    ship receive: card.
+    self assert: (ship hand includes: card).
+    self assert: ship hand size equals: 1.
+]
