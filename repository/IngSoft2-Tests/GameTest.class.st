@@ -364,7 +364,7 @@ GameTest >> test018WhenShip1HasMoreLapsThenShip1IsFirst [
 	ship1 := Ship named: 'Ship1'.
 	ship2 := Ship named: 'Ship2'.
 	dice := LoadedDie with: 6.
-	board := LoadedBoard
+	board := Board
 		         with: 10
 		         parsecs: 100
 		         effects: (Array new: 10 withAll: NoEffect new).
@@ -376,9 +376,9 @@ GameTest >> test018WhenShip1HasMoreLapsThenShip1IsFirst [
 		        board: board
 		        laps: 3.
 
-	game playTurn. 
-	game playTurn. 
-	game playTurn. 
+	game playTurn.
+	game playTurn.
+	game playTurn.
 
 	self assert: (game rankOf: ship1) equals: 1.
 	self assert: (game rankOf: ship2) equals: 2
@@ -431,7 +431,7 @@ GameTest >> test022WhenShipsHaveSameLapsButDifferentPositionThenHigherPositionIs
 	ship1 := Ship named: 'Ship1'.
 	ship2 := Ship named: 'Ship2'.
 	dice := LoadedDie with: 3.
-	board := LoadedBoard
+	board := Board
 		         with: 10
 		         parsecs: 100
 		         effects: (Array new: 10 withAll: NoEffect new).
@@ -443,9 +443,9 @@ GameTest >> test022WhenShipsHaveSameLapsButDifferentPositionThenHigherPositionIs
 		        board: board
 		        laps: 3.
 
-	game playTurn. 
-	game playTurn. 
-	game playTurn. 
+	game playTurn.
+	game playTurn.
+	game playTurn.
 
 	self assert: (game rankOf: ship1) equals: 1.
 	self assert: (game rankOf: ship2) equals: 2
