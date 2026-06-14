@@ -129,6 +129,11 @@ Game >> rollAllTheDice [
 	^ dice inject: 0 into: [ :sum  :aDie | sum  + aDie roll ]
 ]
 
+{ #category : 'initialization' }
+Game >> squaresFor: aParsecAmount [
+    ^ board squaresFor: aParsecAmount
+]
+
 { #category : 'as yet unclassified' }
 Game >> winner [
 
