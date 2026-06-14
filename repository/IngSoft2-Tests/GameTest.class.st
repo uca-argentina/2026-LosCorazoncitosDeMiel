@@ -217,9 +217,8 @@ GameTest >> test010WhenGameIsCreatedWithNoShipsThenRaiseError [
 
 { #category : 'running' }
 GameTest >> test011WhenGameIsCreatedWithNoDiceThenRaiseError [
-	
     self
-        should: [ Game withShips: {Ship new} dice: {} board: (Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) ) ]
+        should: [ Game withShips: {Ship named: 'Ship1'} dice: {} board: (Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new)) ]
         raise: Error
         withMessageText: 'Game must have at least one dice'
 ]
@@ -451,7 +450,7 @@ GameTest >> test022WhenShipsHaveSameLapsButDifferentPositionThenHigherPositionIs
 	self assert: (game rankOf: ship2) equals: 2
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'running' }
 GameTest >> test023WhenShipLandsOnSpeedUpThatLeadsToWormHoleThenWormHoleDoesNotTrigger [
     | ship dice board game effects |
     ship := Ship named: 'Ship1'.

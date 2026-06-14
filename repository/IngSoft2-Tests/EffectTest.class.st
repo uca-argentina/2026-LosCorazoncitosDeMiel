@@ -159,7 +159,7 @@ EffectTest >> test013WhenShipLandsOnHyperJumpAndCrossesGoalThenLapIsAdded [
     self assert: ship laps equals: 1.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'running' }
 EffectTest >> test014WhenHyperJumpIsAppliedFourTimesThenParsecsCycleFromHighestToLowestAndReset [
     | ship effect game dice board |
     ship := Ship named: 'Ship1'.
