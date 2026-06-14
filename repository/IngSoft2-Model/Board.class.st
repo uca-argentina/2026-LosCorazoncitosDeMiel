@@ -12,12 +12,14 @@ Class {
 
 { #category : 'instance creation' }
 Board class >> with: aSquareCount parsecs: aParsecCount effects: aCollection [
-
-    aSquareCount > 0 ifFalse: [ Error signal: 'The number of squares must be greater than 0' ].
-    aParsecCount > 0 ifFalse: [ Error signal: 'Parsecs must be greater than 0' ].
-    aCollection size = aSquareCount ifFalse: [ Error signal: 'Effects count must match square count' ].
-    
-	^ self new initializeWith: aSquareCount parsecs: aParsecCount effects: aCollection
+	| parsecValue |
+	
+	parsecValue := (aParsecCount isKindOf: DistanceUnit) ifTrue: [aParsecCount inParsecs] ifFalse: [aParsecCount].
+	aSquareCount > 0 ifFalse: [ Error signal: 'The number of squares must be greater than 0' ].
+	parsecValue > 0 ifFalse: [ Error signal: 'Parsecs must be greater than 0' ].
+	aCollection size = aSquareCount ifFalse: [ Error signal: 'Effects count must match square count' ].
+	
+	^ self new initializeWith: aSquareCount parsecs: parsecValue effects: aCollection
 ]
 
 { #category : 'applying' }

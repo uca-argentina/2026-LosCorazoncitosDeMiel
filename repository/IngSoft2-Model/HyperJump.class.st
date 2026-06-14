@@ -25,6 +25,6 @@ HyperJump >> applyTo: aShip on: aGame [
 
 { #category : 'initialization' }
 HyperJump >> initializeWith: aCollection [
-    parsecs := aCollection asSortedCollection: [ :a :b | a > b ].
-    currentIndex := 1.
+	parsecs := (aCollection collect: [:each | (each isKindOf: DistanceUnit) ifTrue: [each inParsecs] ifFalse: [each]]) asSortedCollection: [ :a :b | a > b ].
+	currentIndex := 1
 ]

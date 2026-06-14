@@ -261,3 +261,27 @@ EffectTest >> test019WhenShipWithCardsLandsOnGivesCardThenItGetsOneMoreCard [
 	effect applyTo: ship on: game.
 	self assert: ship hand size equals: 3
 ]
+
+{ #category : 'tests' }
+EffectTest >> test020WhenHyperJumpReceivesMixedDistanceUnitsThenItUsesTheLargestInParsecs [
+	| ship hyperJump game dice board |
+	ship := Ship named: 'Ship1'.
+	dice := LoadedDie with: 1.
+	board := Board with: 10 parsecs: 10 effects: (Array new: 10 withAll: NoEffect new).
+	game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+	hyperJump := HyperJump withParsecs: { Parsec of: 3. LightYear of: 6 }.
+	hyperJump applyTo: ship on: game.
+	self assert: ship position equals: 4
+]
+
+{ #category : 'tests' }
+EffectTest >> test021WhenHyperJumpReceivesOnlyLightYearsThenItWorksCorrectly [
+	| ship hyperJump game dice board |
+	ship := Ship named: 'Ship1'.
+	dice := LoadedDie with: 1.
+	board := Board with: 10 parsecs: 10 effects: (Array new: 10 withAll: NoEffect new).
+	game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+	hyperJump := HyperJump withParsecs: { LightYear of: 9. LightYear of: 6 }.
+	hyperJump applyTo: ship on: game.
+	self assert: ship position equals: 4
+]
