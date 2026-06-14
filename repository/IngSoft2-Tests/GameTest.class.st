@@ -499,3 +499,25 @@ GameTest >> test025WhenShipLandsOnAtomicBombAfterCompletingALapThenLapIsKept [
     self assert: ship position equals: 1.
     self assert: ship laps equals: 1.
 ]
+
+{ #category : 'running' }
+GameTest >> test026WhenDosNavesJueganTresTurnosEntoncesCadaUnaJugaEnOrden [
+    | ship1 ship2 dice board game |
+    ship1 := Ship named: 'Ship1'.
+    ship2 := Ship named: 'Ship2'.
+    dice := LoadedDie with: 3.
+    board := Board with: 20 parsecs: 100 effects: (Array new: 20 withAll: NoEffect new).
+    game := Game withShips: {ship1. ship2} dice: {dice} board: board laps: 3.
+
+    game playTurn.
+    self assert: ship1 position equals: 4.
+    self assert: ship2 position equals: 1.
+
+    game playTurn.
+    self assert: ship1 position equals: 4.
+    self assert: ship2 position equals: 4.
+
+    game playTurn.
+    self assert: ship1 position equals: 7.
+    self assert: ship2 position equals: 4.
+]
