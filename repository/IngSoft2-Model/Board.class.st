@@ -43,6 +43,11 @@ Board >> initializeWith: aSquareCount parsecs: aParsecCount effects: aCollection
 ]
 
 { #category : 'as yet unclassified' }
+Board >> lapsCompletedFor: aPosition [
+    ^ (aPosition - 1) // squares
+]
+
+{ #category : 'as yet unclassified' }
 Board >> randomEffect [
     | roll |
     roll := (1 to: 100) atRandom.

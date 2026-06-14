@@ -88,9 +88,10 @@ Game >> moveAllShipsToStart [
 
 { #category : 'as yet unclassified' }
 Game >> moveShip: aShip by: aNumber [
-    | newPosition |
+    | newPosition lapsCompleted |
     newPosition := aShip position + aNumber.
-    (board hasCompletedLap: newPosition) ifTrue: [ aShip addLap ].
+    lapsCompleted := board lapsCompletedFor: newPosition.
+    lapsCompleted timesRepeat: [ aShip addLap ].
     aShip moveTo: (board wrapPosition: newPosition).
 ]
 
