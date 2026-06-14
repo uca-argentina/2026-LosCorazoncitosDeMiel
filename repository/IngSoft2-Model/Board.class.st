@@ -55,7 +55,7 @@ Board >> squareCount [
 
 { #category : 'initialization' }
 Board >> squaresFor: aParsecAmount [
-    ^ aParsecAmount / (totalParsecs / squares)
+    ^ (aParsecAmount / (totalParsecs / squares)) truncated
 ]
 
 { #category : 'as yet unclassified' }
