@@ -13,7 +13,7 @@ MoonWalk class >> withSteps: aNumber [
 	^ self new initializeWith: aNumber
 ]
 
-{ #category : 'initialization' }
+{ #category : 'applying' }
 MoonWalk >> applyTo: aShip on: aGame [
     aGame moveAllShipsExcept: aShip back: steps.
 ]

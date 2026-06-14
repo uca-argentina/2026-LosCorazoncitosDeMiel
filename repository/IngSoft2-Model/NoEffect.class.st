@@ -5,7 +5,7 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'applying' }
 NoEffect >> applyTo: aShip on: aGame [
 	
 ]
