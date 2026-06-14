@@ -77,3 +77,20 @@ BoardTests >> test007WhenShipHasMoreLapsThanRequiredThenHasReachedGoal [
     ship addLap.
     self assert: (board hasShipReachedGoal: ship withLaps: 1).
 ]
+
+{ #category : 'tests' }
+BoardTests >> test008WhenBoardIsCreatedWithLightYearsThenItsTotalDistanceMatches [
+	| aBoard |
+	aBoard := Board with: 10 parsecs: (LightYear of: 30) effects: (Array new: 10 withAll: NoEffect new).
+	self assert: (aBoard squaresFor: 5) equals: 5
+]
+
+{ #category : 'tests' }
+BoardTests >> test009WhenBoardIsCreatedWithParsecsAsUnitThenItWorksTheSameAsWithInteger [
+	| boardWithUnit boardWithInteger |
+	
+	boardWithUnit := Board with: 10 parsecs: (Parsec of: 10) effects: (Array new: 10 withAll: NoEffect new).
+	boardWithInteger := Board with: 10 parsecs: 10 effects: (Array new: 10 withAll: NoEffect new).
+	
+	self assert: (boardWithUnit squaresFor: 5) equals: (boardWithInteger squaresFor: 5)
+]
