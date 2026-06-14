@@ -21,8 +21,8 @@ Board class >> with: aSquareCount parsecs: aParsecCount effects: aCollection [
 ]
 
 { #category : 'as yet unclassified' }
-Board >> effectAt: aPosition [
-    ^ effects at: aPosition
+Board >> applyEffectOf: aPosition to: aShip on: aGame [
+    (effects at: aPosition) applyTo: aShip on: aGame
 ]
 
 { #category : 'as yet unclassified' }

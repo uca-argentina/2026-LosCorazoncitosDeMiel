@@ -90,13 +90,15 @@ Game >> moveShip: aShip by: aNumber [
 
 { #category : 'as yet unclassified' }
 Game >> playTurn [
-    | currentShip totalRoll |
-    self hasFinished ifTrue: [Error signal: 'The game has already finished'].
-    currentShip := ships at: turnIndex.
-    totalRoll := self rollAllTheDice.
-    self moveShip: currentShip by: totalRoll.
-    (board effectAt: currentShip position) applyTo: currentShip on: self.
-    turnIndex := (turnIndex rem: ships size) + 1.
+
+	| currentShip totalRoll |
+	self hasFinished ifTrue: [
+		Error signal: 'The game has already finished' ].
+	currentShip := ships at: turnIndex.
+	totalRoll := self rollAllTheDice.
+	self moveShip: currentShip by: totalRoll.
+	board applyEffectOf: currentShip position to: currentShip on: self.
+	turnIndex := (turnIndex rem: ships size) + 1
 ]
 
 { #category : 'as yet unclassified' }
