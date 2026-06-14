@@ -11,9 +11,13 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
-Board class >> with: aSquareCount parsecs: aParsecCount effects: aCollection [ 
-    aSquareCount > 0 ifTrue: [ ^ self new initializeWith: aSquareCount parsecs: aParsecCount effects: aCollection ]
-	ifFalse: [Error signal: 'The number of squares must be greater than 0']
+Board class >> with: aSquareCount parsecs: aParsecCount effects: aCollection [
+
+    aSquareCount > 0 ifFalse: [ Error signal: 'The number of squares must be greater than 0' ].
+    aParsecCount > 0 ifFalse: [ Error signal: 'Parsecs must be greater than 0' ].
+    aCollection size = aSquareCount ifFalse: [ Error signal: 'Effects count must match square count' ].
+    
+	^ self new initializeWith: aSquareCount parsecs: aParsecCount effects: aCollection
 ]
 
 { #category : 'as yet unclassified' }

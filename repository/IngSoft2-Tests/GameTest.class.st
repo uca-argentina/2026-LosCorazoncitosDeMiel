@@ -71,23 +71,29 @@ self assert: ship2 position equals: 1.
 ]
 
 { #category : 'tests' }
-GameTest >> test004WhenShipCrossesGoalThenGameHasFinished [ 
+GameTest >> test004WhenShipCrossesGoalThenGameHasFinished [
 
-| dice board game ship1 ship2 ships |
-ship1 := Ship named: 'Ship1'.
-ship2 := Ship named: 'Ship2'.
-ships:= OrderedCollection new.
-ships add: ship1.
-ships add: ship2.
-dice:= LoadedDie with: 6.
-board := Board with: 6 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
-game := Game withShips: ships dice: {dice} board: board laps: 1.
+	| dice board game ship1 ship2 ships |
+	ship1 := Ship named: 'Ship1'.
+	ship2 := Ship named: 'Ship2'.
+	ships := OrderedCollection new.
+	ships add: ship1.
+	ships add: ship2.
+	dice := LoadedDie with: 6.
+	board := Board
+		         with: 6
+		         parsecs: 100
+		         effects: (Array new: 6 withAll: NoEffect new).
+	game := Game
+		        withShips: ships
+		        dice: { dice }
+		        board: board
+		        laps: 1.
 
-game playTurn.
+	game playTurn.
 
 
-self assert: game hasFinished.
-
+	self assert: game hasFinished
 ]
 
 { #category : 'tests' }
@@ -114,17 +120,24 @@ self assert: game winner equals: ship1.
 
 { #category : 'tests' }
 GameTest >> test006WhenShipCompletesOneLapThenGameHasFinished [
-    | ship dice board game |
-    ship := Ship named: 'Ship1'.
 
-    dice := LoadedDie with: 6.
-    board := Board with: 6 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
-    game := Game withShips: {ship} dice: {dice} board: board laps: 1.
-    
-    game playTurn.
-    
-    self assert: game hasFinished.
+	| ship dice board game |
+	ship := Ship named: 'Ship1'.
 
+	dice := LoadedDie with: 6.
+	board := Board
+		         with: 6
+		         parsecs: 100
+		         effects: (Array new: 6 withAll: NoEffect new).
+	game := Game
+		        withShips: { ship }
+		        dice: { dice }
+		        board: board
+		        laps: 1.
+
+	game playTurn.
+
+	self assert: game hasFinished
 ]
 
 { #category : 'tests' }
@@ -213,74 +226,120 @@ GameTest >> test011WhenGameIsCreatedWithNoDiceThenRaiseError [
 
 { #category : 'running' }
 GameTest >> test012WhenPlayTurnWithTwoDifferentLoadedDiceThenShipAdvancesTheirSum [
-    | ship dice1 dice2 board game |
-    ship := Ship named: 'Ship1'.
 
-    dice1 := LoadedDie with: 3.
-    dice2 := LoadedDie with: 4.
-    board := Board with: 20 parsecs:100 effects: (Array new: 10 withAll: NoEffect new) .
-    game := Game withShips: {ship} dice: {dice1. dice2} board: board laps: 1.
-    
-    game playTurn.
-    
-    self assert: ship position equals: 8.
+	| ship dice1 dice2 board game |
+	ship := Ship named: 'Ship1'.
+
+	dice1 := LoadedDie with: 3.
+	dice2 := LoadedDie with: 4.
+	board := Board
+		         with: 20
+		         parsecs: 100
+		         effects: (Array new: 20 withAll: NoEffect new).
+	game := Game
+		        withShips: { ship }
+		        dice: {
+				        dice1.
+				        dice2 }
+		        board: board
+		        laps: 1.
+
+	game playTurn.
+
+	self assert: ship position equals: 8
 ]
 
 { #category : 'running' }
 GameTest >> test013WhenShipAdvancesBeyondBoardSizeThenLapsEquals1 [
-    | ship dice board game |
-    ship := Ship named: 'Ship1'.
-    dice := LoadedDie with: 6.
-    board := Board with: 6 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
-    game := Game withShips: {ship} dice: {dice} board: board laps: 1.
-    
-    game playTurn.
-    
-    self assert: ship laps equals: 1.
+
+	| ship dice board game |
+	ship := Ship named: 'Ship1'.
+	dice := LoadedDie with: 6.
+	board := Board
+		         with: 6
+		         parsecs: 100
+		         effects: (Array new: 6 withAll: NoEffect new).
+	game := Game
+		        withShips: { ship }
+		        dice: { dice }
+		        board: board
+		        laps: 1.
+
+	game playTurn.
+
+	self assert: ship laps equals: 1
 ]
 
 { #category : 'running' }
 GameTest >> test014WhenTwoShipsPlayWithTwoDiceThenBothAdvanceTheirSum [
-    | ship1 ship2 dice1 dice2 board game |
-    ship1 := Ship named: 'Ship1'.
-ship2 := Ship named: 'Ship2'.
-    dice1 := LoadedDie with: 3.
-    dice2 := LoadedDie with: 4.
-    board := Board with: 20 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
-    game := Game withShips: {ship1. ship2} dice: {dice1. dice2} board: board laps: 1.
-    
-    game playTurn.
-    game playTurn.
-    
-    self assert: ship1 position equals: 8.
-    self assert: ship2 position equals: 8.
+
+	| ship1 ship2 dice1 dice2 board game |
+	ship1 := Ship named: 'Ship1'.
+	ship2 := Ship named: 'Ship2'.
+	dice1 := LoadedDie with: 3.
+	dice2 := LoadedDie with: 4.
+	board := Board
+		         with: 20
+		         parsecs: 100
+		         effects: (Array new: 20 withAll: NoEffect new).
+	game := Game
+		        withShips: {
+				        ship1.
+				        ship2 }
+		        dice: {
+				        dice1.
+				        dice2 }
+		        board: board
+		        laps: 1.
+
+	game playTurn.
+	game playTurn.
+
+	self assert: ship1 position equals: 8.
+	self assert: ship2 position equals: 8
 ]
 
 { #category : 'running' }
 GameTest >> test015WhenShipAdvancesBeyondBoardSizeThenPositionWrapsAround [
-    | ship dice board game |
-    ship := Ship named: 'Ship1'.
 
-    dice := LoadedDie with: 6.
-    board := Board with: 6 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
-    game := Game withShips: {ship} dice: {dice} board: board laps: 1.
-    
-    game playTurn.
-    
-    self assert: ship position equals: 1.
+	| ship dice board game |
+	ship := Ship named: 'Ship1'.
+
+	dice := LoadedDie with: 6.
+	board := Board
+		         with: 6
+		         parsecs: 100
+		         effects: (Array new: 6 withAll: NoEffect new).
+	game := Game
+		        withShips: { ship }
+		        dice: { dice }
+		        board: board
+		        laps: 1.
+
+	game playTurn.
+
+	self assert: ship position equals: 1
 ]
 
 { #category : 'running' }
 GameTest >> test016WhenShipCompletesOneLapThenGameKnowsLapOfShip [
-    | ship dice board game |
-    ship := Ship named: 'Ship1'.
-    dice := LoadedDie with: 6.
-    board := Board with: 6 parsecs:100 effects: (Array new: 10 withAll: NoEffect new). 
-    game := Game withShips: {ship} dice: {dice} board: board laps: 2.
-    
-    game playTurn.
-    
-    self assert: (game lapsOf: ship) equals: 1.
+
+	| ship dice board game |
+	ship := Ship named: 'Ship1'.
+	dice := LoadedDie with: 6.
+	board := Board
+		         with: 6
+		         parsecs: 100
+		         effects: (Array new: 6 withAll: NoEffect new).
+	game := Game
+		        withShips: { ship }
+		        dice: { dice }
+		        board: board
+		        laps: 2.
+
+	game playTurn.
+
+	self assert: (game lapsOf: ship) equals: 1
 ]
 
 { #category : 'running' }
@@ -392,22 +451,7 @@ GameTest >> test022WhenShipsHaveSameLapsButDifferentPositionThenHigherPositionIs
 	self assert: (game rankOf: ship2) equals: 2
 ]
 
-{ #category : 'running' }
-GameTest >> test025WhenShipLandsOnAtomicBombAfterCompletingALapThenLapIsKept [
-    | ship dice board game effects |
-    ship := Ship named: 'Ship1'.
-    dice := LoadedDie with: 4.
-    effects := Array new: 10 withAll: NoEffect new.
-    effects at: 5 put: AtomicBomb new.
-    board := Board with: 10 parsecs: 100 effects: effects.
-    game := Game withShips: {ship} dice: {dice} board: board laps: 3.
-    
-    ship addLap.
-    game playTurn.
-    
-    self assert: ship position equals: 1.
-    self assert: ship laps equals: 1.
-]
+{ #category : 'as yet unclassified' }
 GameTest >> test023WhenShipLandsOnSpeedUpThatLeadsToWormHoleThenWormHoleDoesNotTrigger [
     | ship dice board game effects |
     ship := Ship named: 'Ship1'.
@@ -437,4 +481,21 @@ GameTest >> test024WhenShipLandsOnWormHoleThatLeadsToSpeedUpThenSpeedUpDoesNotTr
     game playTurn.
     
     self assert: ship position equals: 4.
+]
+
+{ #category : 'running' }
+GameTest >> test025WhenShipLandsOnAtomicBombAfterCompletingALapThenLapIsKept [
+    | ship dice board game effects |
+    ship := Ship named: 'Ship1'.
+    dice := LoadedDie with: 4.
+    effects := Array new: 10 withAll: NoEffect new.
+    effects at: 5 put: AtomicBomb new.
+    board := Board with: 10 parsecs: 100 effects: effects.
+    game := Game withShips: {ship} dice: {dice} board: board laps: 3.
+    
+    ship addLap.
+    game playTurn.
+    
+    self assert: ship position equals: 1.
+    self assert: ship laps equals: 1.
 ]
