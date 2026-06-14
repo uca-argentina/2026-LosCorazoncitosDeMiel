@@ -54,20 +54,6 @@ EffectTest >> test004WhenShipLandsOnMoonWalkThenOtherShipsGoBackN [
 ]
 
 { #category : 'tests' }
-EffectTest >> test005WhenShipLandsOnMoonWalkThenOtherShipsGoBackN [
-    | ship1 ship2 effect game dice board |
-    ship1 := Ship named: 'Ship1'.
-    ship2 := Ship named: 'Ship2'.
-    ship2 moveTo: 5.
-    dice := LoadedDie with: 3.
-    board := Board with: 10 parsecs:100 effects: (Array new: 10 withAll: NoEffect new).
-    game := Game withShips: {ship1. ship2} dice: {dice} board: board laps: 2.
-    effect := MoonWalk withSteps: 3.
-    effect applyTo: ship1 on: game.
-    self assert: ship2 position equals: 2.
-]
-
-{ #category : 'tests' }
 EffectTest >> test006WhenShipLandsOnAtomicBombThenAllShipsGoToPosition1 [
     | ship1 ship2 effect game dice board |
     ship1 := Ship named: 'Ship1'.

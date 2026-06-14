@@ -109,9 +109,7 @@ Game >> positionOf: aShip [
 Game >> rankOf: aShip [
     | rankedShips |
     rankedShips := ships asSortedCollection: [ :aShip :anotherShip |
-        aShip laps = anotherShip laps
-            ifTrue: [ aShip position > anotherShip position ]
-            ifFalse: [ aShip laps > anotherShip laps ] ].
+        aShip isAheadOf: anotherShip ].
     ^ rankedShips indexOf: aShip
 ]
 

@@ -27,6 +27,13 @@ Ship >> initializeNamed: aName [
     name := aName.
 ]
 
+{ #category : 'testing' }
+Ship >> isAheadOf: anotherShip [
+    laps = anotherShip laps
+        ifTrue: [ ^ position > anotherShip position ]
+        ifFalse: [ ^ laps > anotherShip laps ]
+]
+
 { #category : 'accessing' }
 Ship >> laps [
 	^ laps
