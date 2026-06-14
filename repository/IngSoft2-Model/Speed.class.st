@@ -5,7 +5,7 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'applying' }
-Speed >> applyTo: aRoll for: aShip [
-	^ aRoll + 1
+{ #category : 'accessing' }
+Speed >> delta [
+	^ 1
 ]

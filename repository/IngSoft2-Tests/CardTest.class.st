@@ -20,3 +20,11 @@ CardTest >> test002WhenAnOverloadCardIsAppliedToARollThenThatRollIsDecreasedByTw
 	anOverloadCard := Overload new.
 	self assert: (anOverloadCard applyTo: 5 for: aShip) equals: 3
 ]
+
+{ #category : 'tests' }
+CardTest >> test003WhenAnAccelerationCardIsAppliedToARollThenThatRollIsIncreasedByOne [
+	| aShip anAccelerationCard |
+	aShip := Ship named: 'Enterprise'.
+	anAccelerationCard := Acceleration new.
+	self assert: (anAccelerationCard applyTo: 5 for: aShip) equals: 6
+]
