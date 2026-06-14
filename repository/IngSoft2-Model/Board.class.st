@@ -48,18 +48,6 @@ Board >> lapsCompletedFor: aPosition [
 ]
 
 { #category : 'as yet unclassified' }
-Board >> randomEffect [
-    | roll |
-    roll := (1 to: 100) atRandom.
-    roll <= 2 ifTrue: [ ^ AtomicBomb new ].
-    roll <= 12 ifTrue: [ ^ MoonWalk withSteps: (1 to: 10) atRandom ].
-    roll <= 32 ifTrue: [ ^ WormHole new ].
-    roll <= 52 ifTrue: [ ^ SpeedUp new ].
-    roll <= 60 ifTrue: [ ^ HyperJump withParsecs: {10. 5. 2} ].
-    ^ NoEffect new.
-]
-
-{ #category : 'as yet unclassified' }
 Board >> squareCount [
 
 	^ squares 
