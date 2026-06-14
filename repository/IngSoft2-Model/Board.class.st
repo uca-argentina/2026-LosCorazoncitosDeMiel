@@ -11,46 +11,43 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
-Board class >> with: aSquareCount parsecs: aParsecCount effects: aCollection [ 
-    aSquareCount > 0 ifTrue: [ ^ self new initializeWith: aSquareCount parsecs: aParsecCount effects: aCollection ]
-	ifFalse: [Error signal: 'The number of squares must be greater than 0']
+Board class >> with: aSquareCount parsecs: aParsecCount effects: aCollection [
+
+    aSquareCount > 0 ifFalse: [ Error signal: 'The number of squares must be greater than 0' ].
+    aParsecCount > 0 ifFalse: [ Error signal: 'Parsecs must be greater than 0' ].
+    aCollection size = aSquareCount ifFalse: [ Error signal: 'Effects count must match square count' ].
+    
+	^ self new initializeWith: aSquareCount parsecs: aParsecCount effects: aCollection
 ]
 
-{ #category : 'as yet unclassified' }
-Board >> effectAt: aPosition [
-    ^ effects at: aPosition
+{ #category : 'applying' }
+Board >> applyEffectOf: aPosition to: aShip on: aGame [
+    (effects at: aPosition) applyTo: aShip on: aGame
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'testing' }
 Board >> hasCompletedLap: newPosition [
     ^ newPosition > squares
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'testing' }
 Board >> hasShipReachedGoal: aShip withLaps: aLapCount [
     ^ aShip laps >= aLapCount
 ]
 
-{ #category : 'initialization' }
+{ #category : 'accessing' }
 Board >> initializeWith: aSquareCount parsecs: aParsecCount effects: aCollection [
     squares := aSquareCount.
     totalParsecs := aParsecCount.
 		effects := aCollection.
 ]
 
-{ #category : 'as yet unclassified' }
-Board >> randomEffect [
-    | roll |
-    roll := (1 to: 100) atRandom.
-    roll <= 2 ifTrue: [ ^ AtomicBomb new ].
-    roll <= 12 ifTrue: [ ^ MoonWalk withSteps: (1 to: 10) atRandom ].
-    roll <= 32 ifTrue: [ ^ WormHole new ].
-    roll <= 52 ifTrue: [ ^ SpeedUp new ].
-    roll <= 60 ifTrue: [ ^ HyperJump withParsecs: {10. 5. 2} ].
-    ^ NoEffect new.
+{ #category : 'accessing' }
+Board >> lapsCompletedFor: aPosition [
+    ^ (aPosition - 1) // squares
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Board >> squareCount [
 
 	^ squares 
@@ -58,10 +55,10 @@ Board >> squareCount [
 
 { #category : 'initialization' }
 Board >> squaresFor: aParsecAmount [
-    ^ aParsecAmount / (totalParsecs / squares)
+    ^ (aParsecAmount / (totalParsecs / squares)) truncated
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Board >> wrapPosition: aPosition [
     ^ ((aPosition - 1) \\ squares) + 1
 ]

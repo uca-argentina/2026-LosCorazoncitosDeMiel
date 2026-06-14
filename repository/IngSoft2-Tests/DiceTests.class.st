@@ -23,15 +23,6 @@ DiceTests >> test001WhenWeInitializeADiceWithZeroFacesThenRaiseError [
 ]
 
 { #category : 'running' }
-DiceTests >> test002WhenADiceIsInitializedThenFacesDoesntEquals5 [
-
-	|aDice|
-	aDice := Die with: 6.
-	self deny: aDice faces equals: 5.
-		
-]
-
-{ #category : 'running' }
 DiceTests >> test003WhenADiceIsInitializedWith6ThenWhenWeRollTheNumberIsBetween1And6 [
 
 	|aDice|

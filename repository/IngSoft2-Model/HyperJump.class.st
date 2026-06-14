@@ -14,10 +14,11 @@ HyperJump class >> withParsecs: aCollection [
 	^ self new initializeWith: aCollection.
 ]
 
-{ #category : 'initialization' }
+{ #category : 'applying' }
 HyperJump >> applyTo: aShip on: aGame [
-    | steps |
-    steps := aGame board squaresFor: (parsecs at: currentIndex).
+    
+	| steps |
+    steps := aGame squaresFor: (parsecs at: currentIndex).
     aGame moveShip: aShip by: steps.
     currentIndex := (currentIndex rem: parsecs size) + 1.
 ]

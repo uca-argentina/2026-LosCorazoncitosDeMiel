@@ -15,10 +15,11 @@ ShipTest >> test001WhenWeCreateANewShipThenPositionIs1 [
 
 { #category : 'running' }
 ShipTest >> test002WhenShipMovesToPosition4ThenPositionIs4 [
-    | aShip |
-    aShip := Ship new.
-    aShip moveTo: 4.
-    self assert: aShip position equals: 4.
+
+	| aShip |
+	aShip := Ship named: 'Ship1'.
+	aShip moveTo: 4.
+	self assert: aShip position equals: 4
 ]
 
 { #category : 'running' }

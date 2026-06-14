@@ -24,7 +24,7 @@ Die >> initializeWith: anInteger [
 	faces:= anInteger .
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'playing' }
 Die >> roll [
 
 	^ (1 to: faces) atRandom

@@ -20,20 +20,13 @@ Game class >> withShips: someShips dice: someDice board: aBoard [
 ]
 
 { #category : 'as yet unclassified' }
-Game class >> withShips: arg1 dice: arg2 board: arg3 laps: arg4 [
-
-	arg1 isEmpty ifTrue: [
-		Error signal: 'Game must have at least one ship' ].
-	arg2 isEmpty ifTrue: [
-		Error signal: 'Game must have at least one dice' ].
-	^ self new
-		  initializeWithShips: arg1
-		  dice: arg2
-		  board: arg3
-		  laps: arg4
+Game class >> withShips: someShips dice: someDice board: aBoard laps: aLapCount [
+    someShips isEmpty ifTrue: [ Error signal: 'Game must have at least one ship' ].
+    someDice isEmpty ifTrue: [ Error signal: 'Game must have at least one dice' ].
+    ^ self new initializeWithShips: someShips dice: someDice board: aBoard laps: aLapCount
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Game >> board [
 
 	^ board
@@ -66,7 +59,7 @@ Game >> initializeWithShips: arg1 dice: arg2 board: arg3 laps: arg4 [
 	turnIndex := 1
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Game >> lapsOf: arg1 [
 
 	^ arg1 laps
@@ -86,49 +79,54 @@ Game >> moveAllShipsToStart [
 	ships do: [ :arg1 | arg1 moveTo: 1 ]
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'moving' }
 Game >> moveShip: aShip by: aNumber [
-    | newPosition |
+    | newPosition lapsCompleted |
     newPosition := aShip position + aNumber.
-    (board hasCompletedLap: newPosition) ifTrue: [ aShip addLap ].
+    lapsCompleted := board lapsCompletedFor: newPosition.
+    lapsCompleted timesRepeat: [ aShip addLap ].
     aShip moveTo: (board wrapPosition: newPosition).
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'playing' }
 Game >> playTurn [
-    | currentShip totalRoll |
-    self hasFinished ifTrue: [Error signal: 'The game has already finished'].
-    currentShip := ships at: turnIndex.
-    totalRoll := self rollAllTheDice.
-    self moveShip: currentShip by: totalRoll.
-    (board effectAt: currentShip position) applyTo: currentShip on: self.
-    turnIndex := (turnIndex rem: ships size) + 1.
+
+	| currentShip totalRoll |
+	self hasFinished ifTrue: [
+		Error signal: 'The game has already finished' ].
+	currentShip := ships at: turnIndex.
+	totalRoll := self rollAllTheDice.
+	self moveShip: currentShip by: totalRoll.
+	board applyEffectOf: currentShip position to: currentShip on: self.
+	turnIndex := (turnIndex rem: ships size) + 1
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Game >> positionOf: aShip [
 
 	^ aShip position
 ]
 
-{ #category : 'as yet unclassified' }
-Game >> rankOf: arg1 [
-
-	| tmp1 |
-	tmp1 := ships asSortedCollection: [ :arg2 :arg3 |
-			        arg2 laps = arg3 laps
-				        ifTrue: [ arg2 position > arg3 position ]
-				        ifFalse: [ arg2 laps > arg3 laps ] ].
-	^ tmp1 indexOf: arg1
+{ #category : 'accessing' }
+Game >> rankOf: aShip [
+    | rankedShips |
+    rankedShips := ships asSortedCollection: [ :aShip :anotherShip |
+        aShip isAheadOf: anotherShip ].
+    ^ rankedShips indexOf: aShip
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'playing' }
 Game >> rollAllTheDice [
 
 	^ dice inject: 0 into: [ :sum  :aDie | sum  + aDie roll ]
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
+Game >> squaresFor: aParsecAmount [
+    ^ board squaresFor: aParsecAmount
+]
+
+{ #category : 'accessing' }
 Game >> winner [
 
 	^ ships
