@@ -28,3 +28,27 @@ CardTest >> test003WhenAnAccelerationCardIsAppliedToARollThenThatRollIsIncreased
 	anAccelerationCard := Acceleration new.
 	self assert: (anAccelerationCard applyTo: 5 for: aShip) equals: 6
 ]
+
+{ #category : 'tests' }
+CardTest >> test004WhenAPermanentCardIsPlayedThenItIsActiveInTheGame [
+	| aShip aSpeedCard aGame aBoard |
+	aShip := Ship named: 'Enterprise'.
+	aBoard := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+	aGame := Game withShips: { aShip } dice: { Die with: 6 } board: aBoard laps: 1.
+	aSpeedCard := Speed new.
+	aGame play: aSpeedCard from: aShip target: aShip.
+	self assert: (aGame activeCards includes: aSpeedCard)
+]
+
+{ #category : 'tests' }
+CardTest >> test005WhenCancellationIsPlayedOnAnActiveCardThenThatCardIsNoLongerActive [
+	| aShip aSpeedCard aCancellationCard aGame aBoard |
+	aShip := Ship named: 'Enterprise'.
+	aBoard := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+	aGame := Game withShips: { aShip } dice: { Die with: 6 } board: aBoard laps: 1.
+	aSpeedCard := Speed new.
+	aCancellationCard := Cancellation new.
+	aGame play: aSpeedCard from: aShip target: aShip.
+	aGame play: aCancellationCard from: aShip target: aSpeedCard.
+	self deny: (aGame activeCards includes: aSpeedCard)
+]
