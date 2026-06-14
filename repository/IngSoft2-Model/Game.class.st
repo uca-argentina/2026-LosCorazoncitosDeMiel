@@ -20,17 +20,10 @@ Game class >> withShips: someShips dice: someDice board: aBoard [
 ]
 
 { #category : 'as yet unclassified' }
-Game class >> withShips: arg1 dice: arg2 board: arg3 laps: arg4 [
-
-	arg1 isEmpty ifTrue: [
-		Error signal: 'Game must have at least one ship' ].
-	arg2 isEmpty ifTrue: [
-		Error signal: 'Game must have at least one dice' ].
-	^ self new
-		  initializeWithShips: arg1
-		  dice: arg2
-		  board: arg3
-		  laps: arg4
+Game class >> withShips: someShips dice: someDice board: aBoard laps: aLapCount [
+    someShips isEmpty ifTrue: [ Error signal: 'Game must have at least one ship' ].
+    someDice isEmpty ifTrue: [ Error signal: 'Game must have at least one dice' ].
+    ^ self new initializeWithShips: someShips dice: someDice board: aBoard laps: aLapCount
 ]
 
 { #category : 'as yet unclassified' }
@@ -113,14 +106,13 @@ Game >> positionOf: aShip [
 ]
 
 { #category : 'as yet unclassified' }
-Game >> rankOf: arg1 [
-
-	| tmp1 |
-	tmp1 := ships asSortedCollection: [ :arg2 :arg3 |
-			        arg2 laps = arg3 laps
-				        ifTrue: [ arg2 position > arg3 position ]
-				        ifFalse: [ arg2 laps > arg3 laps ] ].
-	^ tmp1 indexOf: arg1
+Game >> rankOf: aShip [
+    | rankedShips |
+    rankedShips := ships asSortedCollection: [ :aShip :anotherShip |
+        aShip laps = anotherShip laps
+            ifTrue: [ aShip position > anotherShip position ]
+            ifFalse: [ aShip laps > anotherShip laps ] ].
+    ^ rankedShips indexOf: aShip
 ]
 
 { #category : 'as yet unclassified' }
