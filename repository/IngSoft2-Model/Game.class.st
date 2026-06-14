@@ -12,24 +12,18 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'instance creation' }
 Game class >> withShips: someShips dice: someDice board: aBoard [
 	someShips isEmpty ifTrue: [ Error signal: 'Game must have at least one ship'].
 	someDice isEmpty ifTrue: [ Error signal: 'Game must have at least one dice'].
 	^ self new initializeWithShips: someShips dice: someDice board: aBoard 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'instance creation' }
 Game class >> withShips: someShips dice: someDice board: aBoard laps: aLapCount [
     someShips isEmpty ifTrue: [ Error signal: 'Game must have at least one ship' ].
     someDice isEmpty ifTrue: [ Error signal: 'Game must have at least one dice' ].
     ^ self new initializeWithShips: someShips dice: someDice board: aBoard laps: aLapCount
-]
-
-{ #category : 'accessing' }
-Game >> board [
-
-	^ board
 ]
 
 { #category : 'testing' }
@@ -50,13 +44,12 @@ Game >> initializeWithShips: someShips dice: someDice board: aBoard [
 ]
 
 { #category : 'initialization' }
-Game >> initializeWithShips: arg1 dice: arg2 board: arg3 laps: arg4 [
-
-	ships := arg1.
-	dice := arg2.
-	board := arg3.
-	lapsToWin := arg4.
-	turnIndex := 1
+Game >> initializeWithShips: someShips dice: someDice board: aBoard laps: aLapCount [
+    ships := someShips.
+    dice := someDice.
+    board := aBoard.
+    lapsToWin := aLapCount.
+    turnIndex := 1
 ]
 
 { #category : 'accessing' }
@@ -128,9 +121,8 @@ Game >> squaresFor: aParsecAmount [
 
 { #category : 'accessing' }
 Game >> winner [
-
-	^ ships
-		  detect: [ :arg1 |
-		  board hasShipReachedGoal: arg1 withLaps: lapsToWin ]
-		  ifNone: [ Error signal: 'The game has not finished yet' ]
+    ^ ships
+        detect: [ :aShip |
+            board hasShipReachedGoal: aShip withLaps: lapsToWin ]
+        ifNone: [ Error signal: 'The game has not finished yet' ]
 ]

@@ -19,7 +19,7 @@ LoadedDie >> initializeWith: anInteger [
 	value := anInteger .
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'playing' }
 LoadedDie >> roll [
 	^value 
 ]

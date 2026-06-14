@@ -10,7 +10,7 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'instance creation' }
 Board class >> with: aSquareCount parsecs: aParsecCount effects: aCollection [
 
     aSquareCount > 0 ifFalse: [ Error signal: 'The number of squares must be greater than 0' ].
@@ -35,7 +35,7 @@ Board >> hasShipReachedGoal: aShip withLaps: aLapCount [
     ^ aShip laps >= aLapCount
 ]
 
-{ #category : 'accessing' }
+{ #category : 'initialization' }
 Board >> initializeWith: aSquareCount parsecs: aParsecCount effects: aCollection [
     squares := aSquareCount.
     totalParsecs := aParsecCount.
@@ -53,7 +53,7 @@ Board >> squareCount [
 	^ squares 
 ]
 
-{ #category : 'initialization' }
+{ #category : 'accessing' }
 Board >> squaresFor: aParsecAmount [
     ^ (aParsecAmount / (totalParsecs / squares)) truncated
 ]

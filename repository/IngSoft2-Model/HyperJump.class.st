@@ -9,7 +9,7 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'instance creation' }
 HyperJump class >> withParsecs: aCollection [ 
 	^ self new initializeWith: aCollection.
 ]

@@ -8,7 +8,7 @@ Class {
 	#package : 'IngSoft2-Model'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'instance creation' }
 MoonWalk class >> withSteps: aNumber [ 
 	^ self new initializeWith: aNumber
 ]
