@@ -6,7 +6,8 @@ Class {
 		'dice',
 		'board',
 		'turnIndex',
-		'lapsToWin'
+		'lapsToWin',
+		'activeCards'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
@@ -24,6 +25,16 @@ Game class >> withShips: someShips dice: someDice board: aBoard laps: aLapCount 
     someShips isEmpty ifTrue: [ Error signal: 'Game must have at least one ship' ].
     someDice isEmpty ifTrue: [ Error signal: 'Game must have at least one dice' ].
     ^ self new initializeWithShips: someShips dice: someDice board: aBoard laps: aLapCount
+]
+
+{ #category : 'accessing' }
+Game >> activeCards [
+	^ activeCards
+]
+
+{ #category : 'playing' }
+Game >> addActiveCard: aCard [
+	activeCards add: aCard
 ]
 
 { #category : 'testing' }
@@ -49,7 +60,8 @@ Game >> initializeWithShips: someShips dice: someDice board: aBoard laps: aLapCo
     dice := someDice.
     board := aBoard.
     lapsToWin := aLapCount.
-    turnIndex := 1
+    turnIndex := 1.
+	 activeCards := OrderedCollection new
 ]
 
 { #category : 'accessing' }
@@ -82,6 +94,11 @@ Game >> moveShip: aShip by: aNumber [
 ]
 
 { #category : 'playing' }
+Game >> play: aCard from: aShip target: aTarget [
+	aCard applyOnPlayTo: aTarget inGame: self
+]
+
+{ #category : 'playing' }
 Game >> playTurn [
 
 	| currentShip totalRoll |
@@ -106,6 +123,11 @@ Game >> rankOf: aShip [
     rankedShips := ships asSortedCollection: [ :aShip :anotherShip |
         aShip isAheadOf: anotherShip ].
     ^ rankedShips indexOf: aShip
+]
+
+{ #category : 'playing' }
+Game >> removeActiveCard: aCard [
+	activeCards remove: aCard
 ]
 
 { #category : 'playing' }

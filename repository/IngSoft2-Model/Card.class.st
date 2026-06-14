@@ -6,11 +6,6 @@ Class {
 }
 
 { #category : 'applying' }
-Card >> applyTo: aRoll for: aShip [
-	^ aRoll + self delta
-]
-
-{ #category : 'accessing' }
-Card >> delta [
-	^ self subclassResponsibility
+Card >> applyOnPlayTo: aTarget inGame: aGame [
+	aGame addActiveCard: self
 ]
