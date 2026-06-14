@@ -222,3 +222,42 @@ EffectTest >> test016WhenAtomicBombIsAppliedThenAllShipsKeepTheirLaps [
     self assert: ship1 laps equals: 2.
     self assert: ship2 laps equals: 1.
 ]
+
+{ #category : 'tests' }
+EffectTest >> test017WhenShipLandsOnGivesCardThenShipReceivesOneCard [
+	| ship effect game dice board |
+	ship := Ship named: 'Ship1'.
+	dice := LoadedDie with: 1.
+	board := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+	game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+	effect := GivesCard new.
+	effect applyTo: ship on: game.
+	self assert: ship hand size equals: 1
+]
+
+{ #category : 'tests' }
+EffectTest >> test018WhenShipLandsOnGivesCardTwiceThenItReceivesTwoCards [
+	| ship effect game dice board |
+	ship := Ship named: 'Ship1'.
+	dice := LoadedDie with: 1.
+	board := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+	game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+	effect := GivesCard new.
+	effect applyTo: ship on: game.
+	effect applyTo: ship on: game.
+	self assert: ship hand size equals: 2
+]
+
+{ #category : 'tests' }
+EffectTest >> test019WhenShipWithCardsLandsOnGivesCardThenItGetsOneMoreCard [
+	| ship effect game dice board |
+	ship := Ship named: 'Ship1'.
+	ship receive: Overload new.
+	ship receive: Overload new.
+	dice := LoadedDie with: 1.
+	board := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+	game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+	effect := GivesCard new.
+	effect applyTo: ship on: game.
+	self assert: ship hand size equals: 3
+]
