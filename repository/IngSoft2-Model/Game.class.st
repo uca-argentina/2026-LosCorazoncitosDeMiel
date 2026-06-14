@@ -88,7 +88,7 @@ Game >> moveShip: aShip by: aNumber [
     aShip moveTo: (board wrapPosition: newPosition).
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'playing' }
 Game >> playTurn [
 
 	| currentShip totalRoll |
@@ -107,7 +107,7 @@ Game >> positionOf: aShip [
 	^ aShip position
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 Game >> rankOf: aShip [
     | rankedShips |
     rankedShips := ships asSortedCollection: [ :aShip :anotherShip |

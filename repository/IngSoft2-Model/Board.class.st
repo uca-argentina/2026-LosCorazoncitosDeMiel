@@ -20,7 +20,7 @@ Board class >> with: aSquareCount parsecs: aParsecCount effects: aCollection [
 	^ self new initializeWith: aSquareCount parsecs: aParsecCount effects: aCollection
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'applying' }
 Board >> applyEffectOf: aPosition to: aShip on: aGame [
     (effects at: aPosition) applyTo: aShip on: aGame
 ]
