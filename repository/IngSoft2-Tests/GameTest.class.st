@@ -407,6 +407,7 @@ GameTest >> test025WhenShipLandsOnAtomicBombAfterCompletingALapThenLapIsKept [
     
     self assert: ship position equals: 1.
     self assert: ship laps equals: 1.
+]
 GameTest >> test023WhenShipLandsOnSpeedUpThatLeadsToWormHoleThenWormHoleDoesNotTrigger [
     | ship dice board game effects |
     ship := Ship named: 'Ship1'.
