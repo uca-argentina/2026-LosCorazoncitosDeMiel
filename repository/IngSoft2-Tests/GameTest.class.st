@@ -520,3 +520,18 @@ GameTest >> test026WhenDosNavesJueganTresTurnosEntoncesCadaUnaJugaEnOrden [
     self assert: ship1 position equals: 7.
     self assert: ship2 position equals: 4.
 ]
+
+{ #category : 'running' }
+GameTest >> test027WhenAnEffectIsAppliedThenGameRemembersItAsLastEffect [
+	| ship dice board game effects |
+	ship := Ship named: 'Ship1'.
+	dice := LoadedDie with: 3.
+	effects := (Array new: 10 withAll: NoEffect new).
+	effects at: 4 put: SpeedUp new.
+	board := Board with: 10 parsecs: 10 effects: effects.
+	game := Game withShips: {ship} dice: {dice} board: board laps: 2.
+	
+	game playTurn.
+	
+	self assert: (game lastEffect isKindOf: SpeedUp)
+]
