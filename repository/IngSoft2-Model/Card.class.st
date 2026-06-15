@@ -9,3 +9,8 @@ Class {
 Card >> applyOnPlayTo: aTarget inGame: aGame [
 	aGame addActiveCard: self
 ]
+
+{ #category : 'applying' }
+Card >> rememberIn: aGame [
+	aGame registerLastPlayedCard: self
+]

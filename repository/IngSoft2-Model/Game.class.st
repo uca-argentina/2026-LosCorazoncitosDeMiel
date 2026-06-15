@@ -8,7 +8,8 @@ Class {
 		'turnIndex',
 		'lapsToWin',
 		'activeCards',
-		'lastEffect'
+		'lastEffect',
+		'lastPlayedCard'
 	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
@@ -63,7 +64,8 @@ Game >> initializeWithShips: someShips dice: someDice board: aBoard laps: aLapCo
     lapsToWin := aLapCount.
     turnIndex := 1.
 	 activeCards := OrderedCollection new.
-	 lastEffect := NoEffect new
+	 lastEffect := NoEffect new.
+	 lastPlayedCard := nil
 ]
 
 { #category : 'accessing' }
@@ -75,6 +77,11 @@ Game >> lapsOf: arg1 [
 { #category : 'accessing' }
 Game >> lastEffect [
 	^ lastEffect
+]
+
+{ #category : 'accessing' }
+Game >> lastPlayedCard [
+	^ lastPlayedCard
 ]
 
 { #category : 'initialization' }
@@ -102,7 +109,8 @@ Game >> moveShip: aShip by: aNumber [
 
 { #category : 'playing' }
 Game >> play: aCard from: aShip target: aTarget [
-	aCard applyOnPlayTo: aTarget inGame: self
+	aCard applyOnPlayTo: aTarget inGame: self.
+	aCard rememberIn: self
 ]
 
 { #category : 'playing' }
@@ -135,6 +143,11 @@ Game >> rankOf: aShip [
 { #category : 'playing' }
 Game >> registerLastEffect: anEffect [
 	lastEffect := anEffect
+]
+
+{ #category : 'playing' }
+Game >> registerLastPlayedCard: aCard [
+	lastPlayedCard := aCard
 ]
 
 { #category : 'playing' }
