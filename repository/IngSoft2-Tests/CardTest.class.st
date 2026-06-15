@@ -82,3 +82,48 @@ CardTest >> test007WhenRepeatIsPlayedAndNoShipHasRolledThenItHasNoEffect [
 	
 	self assert: aShip position equals: 1
 ]
+
+{ #category : 'tests' }
+CardTest >> test008WhenACardIsPlayedThenGameRemembersItAsLastPlayedCard [
+	| aShip aSpeedCard aGame aBoard |
+	aShip := Ship named: 'Ship1'.
+	aBoard := Board with: 10 parsecs: 10 effects: (Array new: 10 withAll: NoEffect new).
+	aGame := Game withShips: { aShip } dice: { LoadedDie with: 1 } board: aBoard laps: 2.
+	
+	aSpeedCard := Speed new.
+	aGame play: aSpeedCard from: aShip target: aShip.
+	
+	self assert: aGame lastPlayedCard equals: aSpeedCard
+]
+
+{ #category : 'tests' }
+CardTest >> test009WhenRedoIsPlayedThenItReplaysTheLastPlayedCard [
+	| aShip aSpeedCard aRedo aGame aBoard |
+	aShip := Ship named: 'Ship1'.
+	aBoard := Board with: 10 parsecs: 10 effects: (Array new: 10 withAll: NoEffect new).
+	aGame := Game withShips: { aShip } dice: { LoadedDie with: 1 } board: aBoard laps: 2.
+	
+	aSpeedCard := Speed new.
+	aRedo := Redo new.
+	aGame play: aSpeedCard from: aShip target: aShip.
+	aGame play: aRedo from: aShip target: aShip.
+	
+	self assert: (aGame activeCards select: [:c | c isKindOf: Speed]) size equals: 2
+]
+
+{ #category : 'tests' }
+CardTest >> test010WhenTwoRedosArePlayedThenBothReplayTheOriginalCard [
+	| aShip aSpeedCard aRedo anotherRedo aGame aBoard |
+	aShip := Ship named: 'Ship1'.
+	aBoard := Board with: 10 parsecs: 10 effects: (Array new: 10 withAll: NoEffect new).
+	aGame := Game withShips: { aShip } dice: { LoadedDie with: 1 } board: aBoard laps: 2.
+	
+	aSpeedCard := Speed new.
+	aRedo := Redo new.
+	anotherRedo := Redo new.
+	aGame play: aSpeedCard from: aShip target: aShip.
+	aGame play: aRedo from: aShip target: aShip.
+	aGame play: anotherRedo from: aShip target: aShip.
+	
+	self assert: (aGame activeCards select: [:c | c isKindOf: Speed]) size equals: 3
+]
