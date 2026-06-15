@@ -24,7 +24,10 @@ Board class >> with: aSquareCount parsecs: aParsecCount effects: aCollection [
 
 { #category : 'applying' }
 Board >> applyEffectOf: aPosition to: aShip on: aGame [
-    (effects at: aPosition) applyTo: aShip on: aGame
+	| effect |
+	effect := effects at: aPosition.
+	aGame registerLastEffect: effect.
+	effect applyTo: aShip on: aGame
 ]
 
 { #category : 'testing' }

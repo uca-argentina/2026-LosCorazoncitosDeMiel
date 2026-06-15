@@ -52,3 +52,33 @@ CardTest >> test005WhenCancellationIsPlayedOnAnActiveCardThenThatCardIsNoLongerA
 	aGame play: aCancellationCard from: aShip target: aSpeedCard.
 	self deny: (aGame activeCards includes: aSpeedCard)
 ]
+
+{ #category : 'tests' }
+CardTest >> test006WhenRepeatIsPlayedThenItReappliesTheLastEffectToTheChosenShip [
+	| aShip anotherShip aRepeat aGame aBoard effects |
+	aShip := Ship named: 'Ship1'.
+	anotherShip := Ship named: 'Ship2'.
+	effects := Array new: 10 withAll: NoEffect new.
+	effects at: 4 put: SpeedUp new.
+	aBoard := Board with: 10 parsecs: 10 effects: effects.
+	aGame := Game withShips: { aShip. anotherShip } dice: { LoadedDie with: 3 } board: aBoard laps: 2.
+	
+	aGame playTurn.
+	aRepeat := Repeat new.
+	aGame play: aRepeat from: anotherShip target: anotherShip.
+	
+	self assert: anotherShip position equals: 5
+]
+
+{ #category : 'tests' }
+CardTest >> test007WhenRepeatIsPlayedAndNoShipHasRolledThenItHasNoEffect [
+	| aShip aRepeat aGame aBoard |
+	aShip := Ship named: 'Ship1'.
+	aBoard := Board with: 10 parsecs: 10 effects: (Array new: 10 withAll: NoEffect new).
+	aGame := Game withShips: { aShip } dice: { LoadedDie with: 3 } board: aBoard laps: 2.
+	
+	aRepeat := Repeat new.
+	aGame play: aRepeat from: aShip target: aShip.
+	
+	self assert: aShip position equals: 1
+]
