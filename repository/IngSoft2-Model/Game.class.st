@@ -11,6 +11,9 @@ Class {
 		'lastEffect',
 		'lastPlayedCard'
 	],
+	#classInstVars : [
+		'lastPlayedCard'
+	],
 	#category : 'IngSoft2-Model',
 	#package : 'IngSoft2-Model'
 }
@@ -65,7 +68,8 @@ Game >> initializeWithShips: someShips dice: someDice board: aBoard laps: aLapCo
     turnIndex := 1.
 	 activeCards := OrderedCollection new.
 	 lastEffect := NoEffect new.
-	 lastPlayedCard := nil
+	 lastPlayedCard := nil.
+	
 ]
 
 { #category : 'accessing' }

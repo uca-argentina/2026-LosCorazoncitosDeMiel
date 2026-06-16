@@ -127,3 +127,71 @@ CardTest >> test010WhenTwoRedosArePlayedThenBothReplayTheOriginalCard [
 	
 	self assert: (aGame activeCards select: [:c | c isKindOf: Speed]) size equals: 3
 ]
+
+{ #category : 'tests' }
+CardTest >> test011WhenAccelerationAffectsAllShipsThenAllShipsGetPlusOne [
+    | ship1 ship2 anAccelerationCard aGame aBoard |
+    ship1 := Ship named: 'Ship1'.
+    ship2 := Ship named: 'Ship2'.
+    aBoard := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+    aGame := Game withShips: { ship1. ship2 } dice: { LoadedDie with: 3 } board: aBoard laps: 2.
+    anAccelerationCard := Acceleration new.
+    aGame play: anAccelerationCard from: ship1 target: nil.
+    aGame playTurn.
+    self assert: ship1 position equals: 4.
+]
+
+{ #category : 'tests' }
+CardTest >> test012WhenInstantCardIsPlayedThenItIsNotInActiveCards [
+    | aShip aRepeat aGame aBoard |
+    aShip := Ship named: 'Ship1'.
+    aBoard := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+    aGame := Game withShips: { aShip } dice: { LoadedDie with: 3 } board: aBoard laps: 2.
+    aRepeat := Repeat new.
+    aGame play: aRepeat from: aShip target: aShip.
+    self deny: (aGame activeCards includes: aRepeat).
+]
+
+{ #category : 'tests' }
+CardTest >> test013WhenCancellationIsPlayedWithNoActiveCardsThenRaisesError [
+    | aShip aCancellationCard aGame aBoard |
+    aShip := Ship named: 'Ship1'.
+    aBoard := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+    aGame := Game withShips: { aShip } dice: { LoadedDie with: 3 } board: aBoard laps: 2.
+    aCancellationCard := Cancellation new.
+    self should: [ aGame play: aCancellationCard from: aShip target: nil ] raise: Error.
+]
+
+{ #category : 'tests' }
+CardTest >> test014WhenShipReceivesACardThenHandSizeIsOne [
+    | aShip aCard |
+    aShip := Ship named: 'Ship1'.
+    aCard := Speed new.
+    aShip receive: aCard.
+    self assert: aShip hand size equals: 1.
+]
+
+{ #category : 'tests' }
+CardTest >> test015WhenOverloadMakesRollNegativeThenShipGoesBack [
+    | aShip anOverloadCard aGame aBoard |
+    aShip := Ship named: 'Ship1'.
+    aBoard := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+    aGame := Game withShips: { aShip } dice: { LoadedDie with: 1 } board: aBoard laps: 2.
+    anOverloadCard := Overload new.
+    aGame play: anOverloadCard from: aShip target: aShip.
+    aGame play: anOverloadCard from: aShip target: aShip.
+    aGame playTurn.
+    self assert: aShip position equals: 2.
+]
+
+{ #category : 'tests' }
+CardTest >> test016WhenRepeatIsPlayedAndLastEffectWasNoEffectThenNothingHappens [
+    | aShip aRepeat aGame aBoard |
+    aShip := Ship named: 'Ship1'.
+    aBoard := Board with: 10 parsecs: 100 effects: (Array new: 10 withAll: NoEffect new).
+    aGame := Game withShips: { aShip } dice: { LoadedDie with: 3 } board: aBoard laps: 2.
+    aGame playTurn.
+    aRepeat := Repeat new.
+    aGame play: aRepeat from: aShip target: aShip.
+    self assert: aShip position equals: 4.
+]
